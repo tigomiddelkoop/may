@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// This only exists to test the app with, this route will dissappear
+Route::get('/', function () {
+    return view('welcome');
 });
