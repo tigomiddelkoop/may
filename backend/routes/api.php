@@ -18,3 +18,27 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/expenses')->group(function () {
+
+});
+
+Route::prefix('/vehicles')->group(function () {
+    Route::prefix('/overview')->group(function () {
+        Route::get('/');
+        Route::get('/{licence_plate}');
+    });
+});
+
+Route::prefix('/fuels')->group(function () {
+
+});
+
+Route::prefix('/locations')->group(function () {
+
+});
+
+Route::prefix('/routes')->group(function () {
+
+});
+
