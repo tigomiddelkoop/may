@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('fuel_id');
-            $table->foreignId('car_id');
-            $table->foreignId('location_id');
+            $table->foreignId('vehicle_id');
+            $table->foreignId('location_id')->nullable();
 
             $table->decimal('amount');
-            $table->decimal('price');
+            $table->decimal('fuel_price');
             $table->bigInteger('odometer');
             $table->boolean('filled_up');
 
