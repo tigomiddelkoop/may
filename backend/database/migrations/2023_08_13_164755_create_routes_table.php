@@ -15,7 +15,6 @@ return new class extends Migration {
 
             $table->foreignId('vehicle_id');
 
-
             $table->boolean('in_progress')->default(false);
 
             $table->bigInteger('odo_start');
