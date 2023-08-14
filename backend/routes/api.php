@@ -1,6 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CleaningController;
+use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\FuelController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RepairController;
+use App\Http\Controllers\Vehicles\OverviewController;
+use App\Http\Controllers\Vehicles\OverviewIndexController;
+use App\Http\Controllers\Vehicles\OverviewShowController;
+use App\Http\Controllers\Vehicles\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 // This only exists to test the app with, this route will dissappear
 Route::get('/', function () {
-    return view('welcome');
+    return ['title' => "Welcome to May, a third generation Vehicles Tracking Tool"];
 });
 
 Route::prefix('/auth')->group(function () {
@@ -24,36 +32,73 @@ Route::prefix('/auth')->group(function () {
     Route::post('/forgot-password');
 });
 
-Route::prefix('/expenses')->group(function () {
-
-});
-
-Route::prefix('/vehicles')->group(function () {
-    Route::prefix('/overview')->group(function () {
-        Route::get('/');
-        Route::get('/{licence_plate}');
+Route::prefix('/vehicles')->name('vehicles.')->group(function () {
+    Route::prefix('/overview')->name('overview.')->group(function () {
+        Route::get('/', OverviewIndexController::class)->name('index');
+        Route::get('/{licence_plate}', OverviewShowController::class)->name('show');
     });
+
+    Route::get('/', [VehicleController::class, 'index'])->name('index');
+
+    Route::get('/{id}', [VehicleController::class, 'show'])->name('show');
+    Route::post('/{id}', [VehicleController::class, 'store'])->name('store');
+    Route::patch('/{id}', [VehicleController::class, 'update'])->name('update');
+    Route::delete('/{id}', [VehicleController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('/fuels')->group(function () {
+Route::prefix('/fuels')->name('fuels.')->group(function () {
+    Route::get('/', [FuelController::class, 'index'])->name('index');
 
+    Route::get('/{id}', [FuelController::class, 'show'])->name('show');
+    Route::post('/{id}', [FuelController::class, 'store'])->name('store');
+    Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
+    Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('/locations')->group(function () {
+Route::prefix('/locations')->name('locations.')->group(function () {
+    Route::get('/', [LocationController::class, 'index'])->name('index');
 
+    Route::get('/{id}', [LocationController::class, 'show'])->name('show');
+    Route::post('/{id}', [LocationController::class, 'store'])->name('store');
+    Route::patch('/{id}', [LocationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [LocationController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('/repairs')->group(function () {
+Route::prefix('/repairs')->name('repairs.')->group(function () {
+    Route::get('/', [RepairController::class, 'index'])->name('index');
 
+    Route::get('/{id}', [RepairController::class, 'show'])->name('show');
+    Route::post('/{id}', [RepairController::class, 'store'])->name('store');
+    Route::patch('/{id}', [RepairController::class, 'update'])->name('update');
+    Route::delete('/{id}', [RepairController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('/cleanings')->group(function () {
+Route::prefix('/cleanings')->name('cleaning.')->group(function () {
+    Route::get('/', [CleaningController::class, 'index'])->name('index');
 
+    Route::get('/{id}', [CleaningController::class, 'show'])->name('show');
+    Route::post('/{id}', [CleaningController::class, 'store'])->name('store');
+    Route::patch('/{id}', [CleaningController::class, 'update'])->name('update');
+    Route::delete('/{id}', [CleaningController::class, 'destroy'])->name('destroy');
 });
 
-Route::prefix('/routes')->group(function () {
+Route::prefix('/expenses')->name('expenses.')->group(function () {
+    Route::get('/', [ExpensesController::class, 'index'])->name('index');
 
+    Route::get('/{id}', [ExpensesController::class, 'show'])->name('show');
+    Route::post('/{id}', [ExpensesController::class, 'store'])->name('store');
+    Route::patch('/{id}', [ExpensesController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ExpensesController::class, 'destroy'])->name('destroy');
 });
+
+//Route::prefix('/routes')->group(function () {
+//    Route::get('/', [RouteController::class, 'index']);
+//
+//    Route::get('/{id}', [RouteController::class, 'show']);
+//    Route::post('/{id}', [RouteController::class, 'store']);
+//    Route::patch('/{id}', [RouteController::class, 'update']);
+//    Route::delete('/{id}', [RouteController::class, 'destroy']);
+//});
 
 
 //Route::prefix('/quick')->group(function () {

@@ -29,12 +29,12 @@ return new class extends Migration {
         Schema::dropColumns('fuels', ['fuel_category_id']);
 
         Schema::table('fuels', function (Blueprint $table) {
-            $table->enum('type', ['ELECTRIC', 'GASOLINE', 'DIESEL', 'GASEOUS']);
+            $table->enum('type', ['ELECTRIC', 'GASOLINE', 'DIESEL', 'GASEOUS'])->nullable();
         });
 
         // @TODO Fix down for constraint
-//        Schema::table('vehicles', function (Blueprint $table) {
-//            $table->bigInteger('fuel_id')->->change();
-//        });
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->bigInteger('fuel_id')->change();
+        });
     }
 };
