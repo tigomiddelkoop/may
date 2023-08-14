@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Locations extends Model
@@ -25,5 +26,9 @@ class Locations extends Model
         return $this->hasMany(FuelExpenses::class);
     }
 
+    public function locationCategory(): BelongsTo
+    {
+        return $this->belongsTo(LocationCategory::class);
+    }
 
 }
