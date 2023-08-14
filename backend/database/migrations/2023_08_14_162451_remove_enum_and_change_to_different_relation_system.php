@@ -15,6 +15,10 @@ return new class extends Migration {
         Schema::table('fuels', function (Blueprint $table) {
             $table->foreignId('fuel_category_id')->after('description')->constrained('fuel_categories');
         });
+
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->bigInteger('fuel_id')->constrained('fuels')->change();
+        });
     }
 
     /**
@@ -27,5 +31,10 @@ return new class extends Migration {
         Schema::table('fuels', function (Blueprint $table) {
             $table->enum('type', ['ELECTRIC', 'GASOLINE', 'DIESEL', 'GASEOUS']);
         });
+
+        // @TODO Fix down for constraint
+//        Schema::table('vehicles', function (Blueprint $table) {
+//            $table->bigInteger('fuel_id')->->change();
+//        });
     }
 };

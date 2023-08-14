@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->bigInteger('odometer');
 
-            $table->text('note');
+            $table->text('note')->nullable();
 
             $table->timestamps();
         });

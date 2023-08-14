@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('fuel_location', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('location_id');
-            $table->bigInteger('fuel_id');
+            $table->bigInteger('location_id')->constrained('locations');
+            $table->bigInteger('fuel_id')->constrained('fuels');
 
             $table->timestamps();
         });

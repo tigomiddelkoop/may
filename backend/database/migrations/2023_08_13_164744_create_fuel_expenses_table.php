@@ -16,14 +16,14 @@ return new class extends Migration
 
             $table->foreignId('fuel_id')->constrained('fuels');;
             $table->foreignId('vehicle_id')->constrained('vehicles');
-            $table->foreignId('location_id')->nullable()->constrained('locations');
+            $table->foreignId('location_id')->constrained('locations')->nullable();
 
             $table->decimal('amount');
             $table->decimal('price');
             $table->bigInteger('odometer');
             $table->boolean('filled_up');
 
-            $table->text('note');
+            $table->text('note')->nullable();
 
             $table->timestamps();
         });
