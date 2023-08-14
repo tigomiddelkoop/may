@@ -9,9 +9,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Locations extends Model
 {
     use HasFactory;
-
-    public function fuels(): HasMany
+    
+    public function repairExpenses(): HasMany
     {
-        return $this->hasMany(Fuels::class);
+        return $this->hasMany(RepairExpenses::class);
     }
+
+    public function cleaningExpenses(): HasMany
+    {
+        return $this->hasMany(CleaningExpenses::class);
+    }
+
+    public function fuelExpenses(): HasMany
+    {
+        return $this->hasMany(FuelExpenses::class);
+    }
+
+
 }

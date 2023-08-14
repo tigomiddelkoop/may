@@ -15,6 +15,7 @@ return new class extends Migration {
 
             $table->foreignId('vehicle_id')->index()->constrained('vehicles');
             $table->foreignId('cleaning_category_id')->index()->constrained('cleaning_categories');
+            $table->foreignId('location_id')->constrained('locations')->nullable();
 
             $table->decimal('price');
             $table->bigInteger('odometer');
