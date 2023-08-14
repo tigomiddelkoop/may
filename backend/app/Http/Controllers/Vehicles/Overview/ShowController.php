@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Vehicles;
+namespace App\Http\Controllers\Vehicles\Overview;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OverviewIndexController extends Controller
+class ShowController extends Controller
 {
     /**
      * Handle the incoming request.

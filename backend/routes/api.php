@@ -5,9 +5,8 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RepairController;
-use App\Http\Controllers\Vehicles\OverviewController;
-use App\Http\Controllers\Vehicles\OverviewIndexController;
-use App\Http\Controllers\Vehicles\OverviewShowController;
+use App\Http\Controllers\Vehicles\Overview\IndexController as VehicleOverviewIndexController;
+use App\Http\Controllers\Vehicles\Overview\ShowController as VehicleOverviewShowController;
 use App\Http\Controllers\Vehicles\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,8 +33,8 @@ Route::prefix('/auth')->group(function () {
 
 Route::prefix('/vehicles')->name('vehicles.')->group(function () {
     Route::prefix('/overview')->name('overview.')->group(function () {
-        Route::get('/', OverviewIndexController::class)->name('index');
-        Route::get('/{licence_plate}', OverviewShowController::class)->name('show');
+        Route::get('/', VehicleOverviewIndexController::class)->name('index');
+        Route::get('/{licence_plate}', VehicleOverviewShowController::class)->name('show');
     });
 
     Route::get('/', [VehicleController::class, 'index'])->name('index');
