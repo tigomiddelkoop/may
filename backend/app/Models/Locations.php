@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Locations extends Model
 {
     use HasFactory;
-    
+
     public function repairExpenses(): HasMany
     {
         return $this->hasMany(RepairExpenses::class);

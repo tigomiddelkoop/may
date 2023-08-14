@@ -11,6 +11,6 @@ class CleaningExpenses extends Model
     use HasFactory;
 
     public function cleaningCategory(): BelongsTo {
-        return $this->belongsTo(CleaningCategories::class);
+        return $this->belongsTo(CleaningCategory::class);
     }
 }

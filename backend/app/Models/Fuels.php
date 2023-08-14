@@ -19,7 +19,7 @@ class Fuels extends Model
 
     public function fuelCategory(): BelongsTo
     {
-        return $this->belongsTo(FuelCategories::class);
+        return $this->belongsTo(FuelCategory::class);
     }
 
     public function fuelExpenses(): HasMany

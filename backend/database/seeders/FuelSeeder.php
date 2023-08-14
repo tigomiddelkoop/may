@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\FuelCategories;
+use App\Models\FuelCategory;
 use App\Models\Fuels;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,10 +15,10 @@ class FuelSeeder extends Seeder
     public function run(): void
     {
 
-        $gasolineCategory = FuelCategories::create(['name' => 'GASOLINE']);
-        $dieselCategory = FuelCategories::create(['name' => 'DIESEL']);
-        $gaseousCategory = FuelCategories::create(['name' => 'GASEOUS']);
-        $electricCategory = FuelCategories::create(['name' => 'ELECTRIC']);
+        $gasolineCategory = FuelCategory::create(['name' => 'GASOLINE']);
+        $dieselCategory = FuelCategory::create(['name' => 'DIESEL']);
+        $gaseousCategory = FuelCategory::create(['name' => 'GASEOUS']);
+        $electricCategory = FuelCategory::create(['name' => 'ELECTRIC']);
 
         $gasoline = array();
         $diesel = array();

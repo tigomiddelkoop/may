@@ -12,6 +12,6 @@ class RepairExpenses extends Model
 
     public function repairCategory(): BelongsTo
     {
-        return $this->belongsTo(RepairCategories::class);
+        return $this->belongsTo(RepairCategory::class);
     }
 }
