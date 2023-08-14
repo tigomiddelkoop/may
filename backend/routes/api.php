@@ -43,7 +43,19 @@ Route::prefix('/locations')->group(function () {
 
 });
 
+Route::prefix('/repairs')->group(function () {
+
+});
+
+Route::prefix('/cleanings')->group(function () {
+
+});
+
 Route::prefix('/routes')->group(function () {
 
 });
 
+
+//Route::prefix('/quick')->group(function () {
+//    Route::get()
+//})

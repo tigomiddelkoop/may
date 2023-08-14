@@ -10,12 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('fuels', function (Blueprint $table) {
+        Schema::create('cleaning_categories', function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
-            $table->enum('type', ['ELECTRIC', 'GASOLINE', 'DIESEL', 'GASEOUS']);
-            $table->string('description')->nullable();
 
             $table->timestamps();
         });
@@ -26,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('fuels');
+        Schema::dropIfExists('cleaning_categories');
     }
 };

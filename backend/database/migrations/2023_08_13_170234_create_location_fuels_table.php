@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('fuel_location', function (Blueprint $table) {
-//            $table->id();
+            $table->id();
 
             $table->bigInteger('location_id');
             $table->bigInteger('fuel_id');

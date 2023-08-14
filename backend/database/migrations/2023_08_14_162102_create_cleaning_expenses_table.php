@@ -10,12 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('fuels', function (Blueprint $table) {
+        Schema::create('cleaning_expenses', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->enum('type', ['ELECTRIC', 'GASOLINE', 'DIESEL', 'GASEOUS']);
-            $table->string('description')->nullable();
+            $table->foreignId('vehicle_id')->index()->constrained('vehicles');
+            $table->foreignId('cleaning_category_id')->index()->constrained('cleaning_categories');
+
+            $table->decimal('price');
+            $table->bigInteger('odometer');
+
+            $table->text('note');
 
             $table->timestamps();
         });
@@ -26,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('fuels');
+        Schema::dropIfExists('cleanings');
     }
 };
