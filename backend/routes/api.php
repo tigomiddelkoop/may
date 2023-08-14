@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Route
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 // This only exists to test the app with, this route will dissappear
 Route::get('/', function () {
-    return ['title' => "Welcome to May, a third generation Vehicles Tracking Tool"];
+    return ['title' => "Welcome to May, a third generation Vehicle Tracking Tool"];
 });
 
 Route::prefix('/auth')->group(function () {

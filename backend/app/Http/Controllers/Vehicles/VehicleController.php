@@ -12,7 +12,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return 'Vehicles LIST';
+        return 'Vehicle LIST';
     }
 
     /**
@@ -28,7 +28,7 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        return 'Vehicles SHOW ' . $id;
+        return 'Vehicle SHOW ' . $id;
     }
 
     /**

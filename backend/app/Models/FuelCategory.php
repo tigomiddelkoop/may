@@ -12,6 +12,6 @@ class FuelCategory extends Model
 
     public function fuels(): hasMany
     {
-        return $this->hasMany(Fuels::class);
+        return $this->hasMany(Fuel::class);
     }
 }

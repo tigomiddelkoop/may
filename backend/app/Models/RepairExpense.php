@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Vehicles extends Model
+class RepairExpense extends Model
 {
     use HasFactory;
 
-    public function fuel(): BelongsTo
+    public function repairCategory(): BelongsTo
     {
-        return $this->belongsTo(Fuels::class);
+        return $this->belongsTo(RepairCategory::class);
     }
 }

@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Fuels extends Model
+class Fuel extends Model
 {
     use HasFactory;
 
     public function locations(): BelongsToMany
     {
-        return $this->belongsToMany(Locations::class);
+        return $this->belongsToMany(Location::class);
     }
 
     public function fuelCategory(): BelongsTo
@@ -24,7 +24,7 @@ class Fuels extends Model
 
     public function fuelExpenses(): HasMany
     {
-        return $this->hasMany(FuelExpenses::class);
+        return $this->hasMany(FuelExpense::class);
     }
 
 }

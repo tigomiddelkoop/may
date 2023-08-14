@@ -12,6 +12,6 @@ class CleaningCategory extends Model
 
     public function cleaningExpenses(): HasMany
     {
-        return $this->hasMany(CleaningExpenses::class);
+        return $this->hasMany(CleaningExpense::class);
     }
 }

@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class RepairCategory extends Model
+class EngineType extends Model
 {
     use HasFactory;
 
-    public function repairExpenses(): HasMany
-    {
-        return $this->hasMany(RepairExpense::class);
+    public function vehicles(): HasMany {
+        return $this->hasMany(Vehicle::class);
     }
 }
