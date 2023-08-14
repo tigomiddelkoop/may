@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SetJSONHeader
+class ForceJson
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class SetJSONHeader
     public function handle(Request $request, Closure $next): Response
     {
 
-        $request->header("Accept", "application/json");
-        $request->header("Content-Type", "application/json");
+        $request->headers->set("Accept", "application/json");
+        $request->headers->set("Content-Type", "application/json");
         return $next($request);
     }
 }
