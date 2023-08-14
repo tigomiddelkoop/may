@@ -20,7 +20,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('/auth')->group(function () {
-
+    Route::post('/login');
+    Route::post('/forgot-password');
 });
 
 Route::prefix('/expenses')->group(function () {
