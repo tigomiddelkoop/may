@@ -7,9 +7,9 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RepairController;
-use App\Http\Controllers\Vehicles\Overview\IndexController as VehicleOverviewIndexController;
-use App\Http\Controllers\Vehicles\Overview\ShowController as VehicleOverviewShowController;
-use App\Http\Controllers\Vehicles\VehicleController;
+use App\Http\Controllers\Vehicle\Overview\IndexController as VehicleOverviewIndexController;
+use App\Http\Controllers\Vehicle\Overview\ShowController as VehicleOverviewShowController;
+use App\Http\Controllers\Vehicle\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*

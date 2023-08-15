@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "tigomiddelkoop/may",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A third generation vehicle tracking tool",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
