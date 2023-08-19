@@ -1,0 +1,7 @@
+#name: Codestyle
+#on:
+#  push:
+#
+#
+#jobs:
+#  check:
