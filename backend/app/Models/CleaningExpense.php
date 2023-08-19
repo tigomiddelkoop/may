@@ -10,7 +10,8 @@ class CleaningExpense extends Model
 {
     use HasFactory;
 
-    public function cleaningCategory(): BelongsTo {
+    public function cleaningCategory(): BelongsTo
+    {
         return $this->belongsTo(CleaningCategory::class);
     }
 }

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -23,8 +24,8 @@ return new class extends Migration {
 
             $table->foreignId('fuel_id')->nullable();
 
-            $table->enum('vehicle_type', ["CAR", "TRUCK", "MOTOR"])->default('CAR');
-            $table->enum('engine_type', ["ELECTRIC", "COMBUSTION"])->default('COMBUSTION');
+            $table->enum('vehicle_type', ['CAR', 'TRUCK', 'MOTOR'])->default('CAR');
+            $table->enum('engine_type', ['ELECTRIC', 'COMBUSTION'])->default('COMBUSTION');
 
             $table->bigInteger('initial_kilometers')->default(0);
             $table->bigInteger('added_by');

@@ -25,8 +25,8 @@ return new class extends Migration
     {
         Schema::dropColumns('vehicles', ['engine_type_id', 'vehicle_type_id']);
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->enum('vehicle_type', ["CAR", "TRUCK", "MOTOR"])->default('CAR');
-            $table->enum('engine_type', ["ELECTRIC", "COMBUSTION"])->default('COMBUSTION');
+            $table->enum('vehicle_type', ['CAR', 'TRUCK', 'MOTOR'])->default('CAR');
+            $table->enum('engine_type', ['ELECTRIC', 'COMBUSTION'])->default('COMBUSTION');
         });
     }
 };

@@ -10,7 +10,8 @@ class EngineType extends Model
 {
     use HasFactory;
 
-    public function vehicles(): HasMany {
+    public function vehicles(): HasMany
+    {
         return $this->hasMany(Vehicle::class);
     }
 }

@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return [
         'title' => 'Welcome to May, a third generation Vehicle Tracking Tool',
-        'version' => '0.0.1'
+        'version' => '0.0.1',
     ];
 });
 
@@ -96,17 +96,16 @@ Route::middleware([])->group(function () {
         Route::delete('/{id}', [ExpensesController::class, 'destroy'])->name('destroy');
     });
 
-//Route::prefix('/routes')->group(function () {
-//    Route::get('/', [RouteController::class, 'index']);
-//
-//    Route::get('/{id}', [RouteController::class, 'show']);
-//    Route::post('/{id}', [RouteController::class, 'store']);
-//    Route::patch('/{id}', [RouteController::class, 'update']);
-//    Route::delete('/{id}', [RouteController::class, 'destroy']);
-//});
+    //Route::prefix('/routes')->group(function () {
+    //    Route::get('/', [RouteController::class, 'index']);
+    //
+    //    Route::get('/{id}', [RouteController::class, 'show']);
+    //    Route::post('/{id}', [RouteController::class, 'store']);
+    //    Route::patch('/{id}', [RouteController::class, 'update']);
+    //    Route::delete('/{id}', [RouteController::class, 'destroy']);
+    //});
 
-
-//Route::prefix('/quick')->group(function () {
-//    Route::get()
-//})
+    //Route::prefix('/quick')->group(function () {
+    //    Route::get()
+    //})
 });

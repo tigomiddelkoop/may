@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('repair_category_id')->index()->constrained('repair_categories');
             $table->foreignId('location_id')->constrained('locations')->nullable();
 
-
             $table->decimal('price');
             $table->bigInteger('odometer');
 

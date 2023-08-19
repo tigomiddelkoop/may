@@ -28,7 +28,7 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        return 'Vehicle SHOW ' . $id;
+        return 'Vehicle SHOW '.$id;
     }
 
     /**

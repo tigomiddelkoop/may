@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\FuelCategory;
 use App\Models\Fuel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\FuelCategory;
 use Illuminate\Database\Seeder;
 
 class FuelSeeder extends Seeder
@@ -20,9 +19,9 @@ class FuelSeeder extends Seeder
         $gaseousCategory = FuelCategory::create(['name' => 'GASEOUS']);
         $electricCategory = FuelCategory::create(['name' => 'ELECTRIC']);
 
-        $gasoline = array();
-        $diesel = array();
-        $gaseous = array();
+        $gasoline = [];
+        $diesel = [];
+        $gaseous = [];
 
         $gasoline['e5'] = new Fuel();
         $gasoline['e5']->name = 'E5';
@@ -77,7 +76,6 @@ class FuelSeeder extends Seeder
         $diesel['xtl']->description = 'This diesel has not been made from crude oil';
         $diesel['xtl']->fuelCategory()->associate($dieselCategory);
         $diesel['xtl']->save();
-
 
         $gaseous['hydrogen'] = new Fuel();
         $gaseous['hydrogen']->name = 'H20';

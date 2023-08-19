@@ -26,5 +26,4 @@ class Fuel extends Model
     {
         return $this->hasMany(FuelExpense::class);
     }
-
 }
