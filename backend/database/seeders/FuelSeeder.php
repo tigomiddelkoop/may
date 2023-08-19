@@ -101,7 +101,7 @@ class FuelSeeder extends Seeder
         $gaseous['cng']->fuelCategory()->associate($gaseousCategory);
         $gaseous['cng']->save();
 
-        $electric = new Fuel;
+        $electric = new Fuel();
         $electric->name = 'Electric';
         $electric->description = 'This fuel type uses the electricity grid';
         $electric->fuelCategory()->associate($electricCategory);

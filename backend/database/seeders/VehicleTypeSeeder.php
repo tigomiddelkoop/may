@@ -12,7 +12,7 @@ class VehicleTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $car = new VehicleType;
+        $car = new VehicleType();
         $car->name = 'Car';
         $car->save();
 
