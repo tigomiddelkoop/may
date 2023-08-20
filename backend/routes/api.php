@@ -46,7 +46,7 @@ Route::middleware([])->group(function () {
         Route::get('/', [VehicleController::class, 'index'])->name('index');
 
         Route::get('/{id}', [VehicleController::class, 'show'])->name('show');
-        Route::post('/{id}', [VehicleController::class, 'store'])->name('store');
+        Route::post('/', [VehicleController::class, 'store'])->name('store');
         Route::patch('/{id}', [VehicleController::class, 'update'])->name('update');
         Route::delete('/{id}', [VehicleController::class, 'destroy'])->name('destroy');
     });

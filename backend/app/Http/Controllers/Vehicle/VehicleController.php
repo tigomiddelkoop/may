@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Vehicle\StoreRequest as VehicleStoreRequest;
+use App\Http\Requests\Vehicle\UpdateRequest as VehicleUpdateRequest;
+use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -12,15 +14,36 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return 'Vehicle LIST';
+        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->get();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VehicleStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $vehicle = new Vehicle();
+
+        $vehicle->make = $validated['make'];
+        $vehicle->model = $validated['model'];
+
+        $vehicle->initial_kilometers = $validated['initial_kilometers'];
+        $vehicle->vin_number = $validated['vin_number'];
+
+        $vehicle->license_plate = $validated['license_plate'];
+        $vehicle->license_plate_country = $validated['license_plate_country'];
+
+        $vehicle->vehicleType()->associate($validated['vehicle_type']);
+        $vehicle->engineType()->associate($validated['engine_type']);
+        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
+
+        // @TODO Switch to the user model for login
+        $vehicle->added_by = 1;
+
+        $savedVehicle = $vehicle->save();
+
+        return $savedVehicle;
     }
 
     /**
@@ -28,13 +51,13 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        return 'Vehicle SHOW '.$id;
+        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VehicleUpdateRequest $request, string $id)
     {
         //
     }

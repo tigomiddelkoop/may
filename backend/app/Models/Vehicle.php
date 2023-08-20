@@ -5,24 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Vehicle extends Model
 {
     use HasFactory;
 
-    public function fuel(): BelongsTo
+    public function defaultFuelType(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);
     }
 
-    public function engineType(): HasOne
+    public function engineType(): BelongsTo
     {
-        return $this->hasOne(EngineType::class);
+        return $this->belongsTo(EngineType::class);
     }
 
-    public function vehicleType(): HasOne
+    public function vehicleType(): BelongsTo
     {
-        return $this->hasOne(VehicleType::class);
+        return $this->belongsTo(VehicleType::class);
     }
 }

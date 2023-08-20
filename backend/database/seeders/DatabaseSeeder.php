@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             FuelSeeder::class,
             VehicleTypeSeeder::class,
             EngineTypeSeeder::class,
+            ActivityCategorySeeder::class,
         ]);
     }
 }

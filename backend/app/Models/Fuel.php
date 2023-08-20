@@ -17,9 +17,9 @@ class Fuel extends Model
         return $this->belongsToMany(Location::class);
     }
 
-    public function fuelCategory(): BelongsTo
+    public function fuelType(): BelongsTo
     {
-        return $this->belongsTo(FuelCategory::class);
+        return $this->belongsTo(FuelType::class);
     }
 
     public function fuelExpenses(): HasMany

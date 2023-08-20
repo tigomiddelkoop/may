@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CleaningExpense extends Model
+class ActivityExpense extends Model
 {
     use HasFactory;
 
-    public function cleaningCategory(): BelongsTo
+    public function activityCategory(): BelongsTo
     {
-        return $this->belongsTo(CleaningCategory::class);
+        return $this->belongsTo(ActivityCategory::class);
     }
 }
