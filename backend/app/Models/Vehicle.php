@@ -10,6 +10,15 @@ class Vehicle extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'make',
+        'model',
+        'initial_kilometers',
+        'vin_number',
+        'license_plate',
+        'license_plate_country',
+    ];
+
     public function defaultFuelType(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);

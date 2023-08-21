@@ -32,8 +32,7 @@ class StoreRequest extends FormRequest
 
             'vehicle_type' => 'required|numeric',
             'engine_type' => 'required|numeric',
-            'fuel_type' => 'required|numeric',
-            'default_fuel' => 'numeric',
+            'default_fuel_type' => 'required|numeric',
 
              'note' => 'text',
         ];

@@ -60,27 +60,13 @@ class VehicleController extends Controller
     public function update(VehicleUpdateRequest $request, string $id)
     {
         $validated = $request->validated();
-        $vehicle = Vehicle::find($id);
+        $vehicle = Vehicle::find($id)->update($validated);
 
-        $vehicle->make = $validated['make'];
-        $vehicle->model = $validated['model'];
+//        $vehicle->vehicleType()->associate($validated['vehicle_type']);
+//        $vehicle->engineType()->associate($validated['engine_type']);-
+//        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
 
-        $vehicle->initial_kilometers = $validated['initial_kilometers'];
-        $vehicle->vin_number = $validated['vin_number'];
-
-        $vehicle->license_plate = $validated['license_plate'];
-        $vehicle->license_plate_country = $validated['license_plate_country'];
-
-        $vehicle->vehicleType()->associate($validated['vehicle_type']);
-        $vehicle->engineType()->associate($validated['engine_type']);
-        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
-
-        // @TODO Switch to the user model for login
-        $vehicle->added_by = 1;
-
-        $savedVehicle = $vehicle->save();
-
-        return $savedVehicle;
+        return $vehicle;
     }
 
     /**

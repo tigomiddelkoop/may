@@ -32,10 +32,9 @@ class UpdateRequest extends FormRequest
 
             'vehicle_type' => 'numeric',
             'engine_type' => 'numeric',
-            'fuel_type' => 'numeric',
-            'default_fuel' => 'numeric',
+            'default_fuel_type' => 'numeric',
 
-             'note' => 'text',
+            'note' => 'text',
         ];
     }
 }
