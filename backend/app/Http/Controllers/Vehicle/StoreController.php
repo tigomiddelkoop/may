@@ -28,13 +28,14 @@ class StoreController extends Controller
 
         $vehicle->vehicleType()->associate($validated['vehicle_type']);
         $vehicle->engineType()->associate($validated['engine_type']);
-        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
+        $vehicle->defaultFuelType()->associate($validated['default_fuel_type']);
 
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
 
         $savedVehicle = $vehicle->save();
 
-        return $savedVehicle;
+        return $vehicle->refresh();
+//        return $vehicle;
     }
 }

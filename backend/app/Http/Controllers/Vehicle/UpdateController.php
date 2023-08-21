@@ -17,10 +17,11 @@ class UpdateController extends Controller
         $validated = $request->validated();
         $vehicle = Vehicle::find($id)->update($validated);
 
+        // @TODO fix the assocs with relations when they change
         //        $vehicle->vehicleType()->associate($validated['vehicle_type']);
         //        $vehicle->engineType()->associate($validated['engine_type']);-
         //        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
 
-        return $vehicle;
+        return Vehicle::find($id);
     }
 }
