@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class OverviewController extends Controller
+class ActivityExpenseController extends Controller
 {
     //
 }

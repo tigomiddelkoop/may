@@ -22,7 +22,7 @@ class Vehicle extends Model
     protected $hidden = [
         'default_fuel_type_id',
         'engine_type_id',
-        'vehicle_type_id'
+        'vehicle_type_id',
     ];
 
     public function defaultFuelType(): BelongsTo
