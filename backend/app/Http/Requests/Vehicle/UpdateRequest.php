@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -35,7 +35,7 @@ class UpdateRequest extends FormRequest
             'fuel_type' => 'numeric',
             'default_fuel' => 'numeric',
 
-            // 'note' => 'text',
+             'note' => 'text',
         ];
     }
 }
