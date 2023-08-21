@@ -18,9 +18,9 @@ class UpdateController extends Controller
         $vehicle = Vehicle::find($id)->update($validated);
 
         // @TODO fix the assocs with relations when they change
-        //        $vehicle->vehicleType()->associate($validated['vehicle_type']);
-        //        $vehicle->engineType()->associate($validated['engine_type']);-
-        //        $vehicle->defaultFuelType()->associate($validated['fuel_type']);
+        // $vehicle->vehicleType()->associate($validated['vehicle_type']);
+        // $vehicle->engineType()->associate($validated['engine_type']);-
+        // $vehicle->defaultFuelType()->associate($validated['fuel_type']);
 
         return Vehicle::find($id);
     }

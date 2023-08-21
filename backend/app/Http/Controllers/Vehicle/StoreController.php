@@ -33,9 +33,8 @@ class StoreController extends Controller
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
 
-        $savedVehicle = $vehicle->save();
+        $vehicle->save();
 
         return $vehicle->refresh();
-//        return $vehicle;
     }
 }
