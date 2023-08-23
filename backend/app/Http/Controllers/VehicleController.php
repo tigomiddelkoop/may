@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Vehicle\StoreRequest as VehicleStoreRequest;
-use App\Http\Requests\Vehicle\UpdateRequest as VehicleUpdateRequest;
+use App\Http\Requests\Vehicle\StoreRequest;
+use App\Http\Requests\Vehicle\UpdateRequest;
 use App\Models\Vehicle;
 
 class VehicleController extends Controller
@@ -13,13 +13,13 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->get();
+        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->orderBy('id')->get();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(VehicleStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         $validated = $request->validated();
         $vehicle = new Vehicle();
@@ -56,7 +56,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VehicleUpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
         $vehicle = Vehicle::find($id)->update($validated);

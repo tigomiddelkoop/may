@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VehicleType\UpdateRequest;
+use App\Http\Requests\VehicleType\StoreRequest;
 use App\Models\VehicleType;
-use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -13,15 +14,22 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return VehicleType::all();
+        return VehicleType::orderBy('id')->get();
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $vehicleType = new VehicleType();
+
+        $vehicleType->name = $validated['name'];
+
+        $vehicleType->save();
+
+        return $vehicleType->refresh();
     }
 
     /**
@@ -29,15 +37,19 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-         return VehicleType::find($id);
+        return VehicleType::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
+
     {
-        //
+        $validated = $request->validated();
+        VehicleType::find($id)->update($validated);
+
+        return VehicleType::find($id);
     }
 
     /**
@@ -45,6 +57,6 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return VehicleType::destroy($id);
     }
 }
