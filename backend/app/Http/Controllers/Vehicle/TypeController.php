@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
+use App\Models\VehicleType;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return VehicleType::all();
     }
 
     /**
@@ -28,7 +29,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+         return VehicleType::find($id);
     }
 
     /**

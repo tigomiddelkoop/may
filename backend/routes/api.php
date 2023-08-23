@@ -11,7 +11,7 @@ use App\Http\Controllers\RouteController;
 
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Vehicle\OverviewController as VehicleOverviewController;
-use App\Http\Controllers\Vehicle\CategoryController as VehicleCategoryController;
+use App\Http\Controllers\Vehicle\TypeController as VehicleTypeController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -46,80 +46,88 @@ Route::prefix('/users')->name('users.')->group(function () {
 Route::middleware([])->group(function () {
     Route::prefix('/vehicles')->name('vehicles.')->group(function () {
 
+        Route::prefix('/types')->name('types.')->group(function () {
+            Route::get('/', [VehicleTypeController::class, 'index'])->name('index');
+            Route::post('/', [VehicleTypeController::class, 'store'])->name('store');
+
+            Route::middleware(['exists.vehicletype'])->group(function () {
+                Route::get('/{id}', [VehicleTypeController::class, 'show'])->name('show');
+                Route::patch('/{id}', [VehicleTypeController::class, 'update'])->name('update');
+                Route::delete('/{id}', [VehicleTypeController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         Route::prefix('/overview')->name('overview.')->group(function () {
             Route::get('/', [VehicleOverviewController::class, 'index'])->name('index');
             Route::get('/{licence_plate}', [VehicleOverviewController::class, 'show'])->name('show');
         });
 
         Route::get('/', [VehicleController::class, 'index'])->name('index');
-        Route::get('/{id}', [VehicleController::class, 'show'])->name('show');
         Route::post('/', [VehicleController::class, 'store'])->name('store');
-        Route::patch('/{id}', [VehicleController::class, 'update'])->name('update');
-        Route::delete('/{id}', [VehicleController::class, 'destroy'])->name('destroy');
-
-        // @TODO add categories
-
-        Route::prefix('/categories')->name('categories.')->group(function () {
-            Route::get('/', [VehicleCategoryController::class, 'index']);
+        Route::middleware(['exists.vehicle'])->group(function () {
+            Route::get('/{id}', [VehicleController::class, 'show'])->name('show');
+            Route::patch('/{id}', [VehicleController::class, 'update'])->name('update');
+            Route::delete('/{id}', [VehicleController::class, 'destroy'])->name('destroy');
         });
     });
 
-    Route::prefix('/expenses')->name('expenses.')->group(function () {
-        Route::get('/', [ExpenseController::class, 'index'])->name('index');
 
-        Route::get('/{id}', [ExpenseController::class, 'show'])->name('show');
-        Route::post('/', [ExpenseController::class, 'store'])->name('store');
-        Route::patch('/{id}', [ExpenseController::class, 'update'])->name('update');
-        Route::delete('/{id}', [ExpenseController::class, 'destroy'])->name('destroy');
-    });
+//    Route::prefix('/expenses')->name('expenses.')->group(function () {
+//        Route::get('/', [ExpenseController::class, 'index'])->name('index');
+//
+//        Route::get('/{id}', [ExpenseController::class, 'show'])->name('show');
+//        Route::post('/', [ExpenseController::class, 'store'])->name('store');
+//        Route::patch('/{id}', [ExpenseController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [ExpenseController::class, 'destroy'])->name('destroy');
+//    });
 
-    Route::prefix('/fuels')->name('fuels.')->group(function () {
-        Route::get('/', [FuelController::class, 'index'])->name('index');
+//    Route::prefix('/fuels')->name('fuels.')->group(function () {
+//        Route::get('/', [FuelController::class, 'index'])->name('index');
+//
+//        Route::get('/{id}', [FuelController::class, 'show'])->name('show');
+//        Route::post('/', [FuelController::class, 'store'])->name('store');
+//        Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
 
-        Route::get('/{id}', [FuelController::class, 'show'])->name('show');
-        Route::post('/', [FuelController::class, 'store'])->name('store');
-        Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
-        Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
+    // @TODO add categories
+    // @TODO add types
 
-        // @TODO add categories
-        // @TODO add types
+//});
 
-    });
+//    Route::prefix('/locations')->name('locations.')->group(function () {
+//        Route::get('/', [LocationController::class, 'index'])->name('index');
+//
+//        Route::get('/{id}', [LocationController::class, 'show'])->name('show');
+//        Route::post('/', [LocationController::class, 'store'])->name('store');
+//        Route::patch('/{id}', [LocationController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('destroy');
 
-    Route::prefix('/locations')->name('locations.')->group(function () {
-        Route::get('/', [LocationController::class, 'index'])->name('index');
+// @TODO add categories
+//    });
 
-        Route::get('/{id}', [LocationController::class, 'show'])->name('show');
-        Route::post('/', [LocationController::class, 'store'])->name('store');
-        Route::patch('/{id}', [LocationController::class, 'update'])->name('update');
-        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('destroy');
-
-        // @TODO add categories
-    });
-
-    Route::prefix('engines')->name('engines.')->group(function () {
-        Route::get('/', [EngineController::class, 'index'])->name('index');
-
-        Route::get('/{id}', [EngineController::class, 'show'])->name('show');
-        Route::post('/', [EngineController::class, 'store'])->name('store');
-        Route::patch('/{id}', [EngineController::class, 'update'])->name('update');
-        Route::delete('/{id}', [EngineController::class, 'destroy'])->name('destroy');
-    });
-
-
-    Route::prefix('/routes')->name('route.')->group(function () {
-        Route::get('/', [RouteController::class, 'index'])->name('index');
-
-        Route::get('/{id}', [RouteController::class, 'show'])->name('show');
-        Route::post('/', [RouteController::class, 'store'])->name('store');
-        Route::patch('/{id}', [RouteController::class, 'update'])->name('update');
-        Route::delete('/{id}', [RouteController::class, 'destroy'])->name('destroy');
-
-        // @TODO add categories
-    });
+//    Route::prefix('engines')->name('engines.')->group(function () {
+//        Route::get('/', [EngineController::class, 'index'])->name('index');
+//
+//        Route::get('/{id}', [EngineController::class, 'show'])->name('show');
+//        Route::post('/', [EngineController::class, 'store'])->name('store');
+//        Route::patch('/{id}', [EngineController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [EngineController::class, 'destroy'])->name('destroy');
+//    });
 
 
-    //Route::prefix('/quick')->group(function () {
-    //    Route::get()
-    //})
+//    Route::prefix('/routes')->name('route.')->group(function () {
+//        Route::get('/', [RouteController::class, 'index'])->name('index');
+//
+//        Route::get('/{id}', [RouteController::class, 'show'])->name('show');
+//        Route::post('/', [RouteController::class, 'store'])->name('store');
+//        Route::patch('/{id}', [RouteController::class, 'update'])->name('update');
+//        Route::delete('/{id}', [RouteController::class, 'destroy'])->name('destroy');
+//
+// @TODO add categories
+//    });
 });
+
+//Route::prefix('/quick')->group(function () {
+//    Route::get()
+//})
+
