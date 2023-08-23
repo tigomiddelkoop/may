@@ -16,7 +16,7 @@ class VehicleExists
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Vehicle::where('id', $request->id)->exists()) {
+        if (! Vehicle::where('id', $request->id)->exists()) {
             abort(404, 'Vehicle Not Found');
         }
 

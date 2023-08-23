@@ -12,11 +12,11 @@ class VehicleTypeExists
     /**
      * Handle an incoming request.
      *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!VehicleType::where('id', $request->id)->exists()) {
+        if (! VehicleType::where('id', $request->id)->exists()) {
             abort(404, 'Vehicle Type Not Found');
         }
 

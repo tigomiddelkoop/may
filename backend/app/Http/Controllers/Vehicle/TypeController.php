@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VehicleType\UpdateRequest;
 use App\Http\Requests\VehicleType\StoreRequest;
+use App\Http\Requests\VehicleType\UpdateRequest;
 use App\Models\VehicleType;
 
 class TypeController extends Controller
@@ -44,7 +44,6 @@ class TypeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateRequest $request, string $id)
-
     {
         $validated = $request->validated();
         VehicleType::find($id)->update($validated);

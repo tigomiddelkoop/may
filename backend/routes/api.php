@@ -3,16 +3,12 @@
 // Auth
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-
-use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RouteController;
-
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Vehicle\OverviewController as VehicleOverviewController;
 use App\Http\Controllers\Vehicle\TypeController as VehicleTypeController;
-
+use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,63 +67,60 @@ Route::middleware([])->group(function () {
         });
     });
 
+    //    Route::prefix('/expenses')->name('expenses.')->group(function () {
+    //        Route::get('/', [FuelExpenseController::class, 'index'])->name('index');
+    //
+    //        Route::get('/{id}', [FuelExpenseController::class, 'show'])->name('show');
+    //        Route::post('/', [FuelExpenseController::class, 'store'])->name('store');
+    //        Route::patch('/{id}', [FuelExpenseController::class, 'update'])->name('update');
+    //        Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
+    //    });
 
-//    Route::prefix('/expenses')->name('expenses.')->group(function () {
-//        Route::get('/', [ExpenseController::class, 'index'])->name('index');
-//
-//        Route::get('/{id}', [ExpenseController::class, 'show'])->name('show');
-//        Route::post('/', [ExpenseController::class, 'store'])->name('store');
-//        Route::patch('/{id}', [ExpenseController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [ExpenseController::class, 'destroy'])->name('destroy');
-//    });
-
-//    Route::prefix('/fuels')->name('fuels.')->group(function () {
-//        Route::get('/', [FuelController::class, 'index'])->name('index');
-//
-//        Route::get('/{id}', [FuelController::class, 'show'])->name('show');
-//        Route::post('/', [FuelController::class, 'store'])->name('store');
-//        Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
+    //    Route::prefix('/fuels')->name('fuels.')->group(function () {
+    //        Route::get('/', [FuelController::class, 'index'])->name('index');
+    //
+    //        Route::get('/{id}', [FuelController::class, 'show'])->name('show');
+    //        Route::post('/', [FuelController::class, 'store'])->name('store');
+    //        Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
+    //        Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
 
     // @TODO add categories
     // @TODO add types
 
-//});
+    //});
 
-//    Route::prefix('/locations')->name('locations.')->group(function () {
-//        Route::get('/', [LocationController::class, 'index'])->name('index');
-//
-//        Route::get('/{id}', [LocationController::class, 'show'])->name('show');
-//        Route::post('/', [LocationController::class, 'store'])->name('store');
-//        Route::patch('/{id}', [LocationController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('destroy');
+    //    Route::prefix('/locations')->name('locations.')->group(function () {
+    //        Route::get('/', [LocationController::class, 'index'])->name('index');
+    //
+    //        Route::get('/{id}', [LocationController::class, 'show'])->name('show');
+    //        Route::post('/', [LocationController::class, 'store'])->name('store');
+    //        Route::patch('/{id}', [LocationController::class, 'update'])->name('update');
+    //        Route::delete('/{id}', [LocationController::class, 'destroy'])->name('destroy');
 
-// @TODO add categories
-//    });
+    // @TODO add categories
+    //    });
 
-//    Route::prefix('engines')->name('engines.')->group(function () {
-//        Route::get('/', [EngineController::class, 'index'])->name('index');
-//
-//        Route::get('/{id}', [EngineController::class, 'show'])->name('show');
-//        Route::post('/', [EngineController::class, 'store'])->name('store');
-//        Route::patch('/{id}', [EngineController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [EngineController::class, 'destroy'])->name('destroy');
-//    });
+    //    Route::prefix('engines')->name('engines.')->group(function () {
+    //        Route::get('/', [EngineController::class, 'index'])->name('index');
+    //
+    //        Route::get('/{id}', [EngineController::class, 'show'])->name('show');
+    //        Route::post('/', [EngineController::class, 'store'])->name('store');
+    //        Route::patch('/{id}', [EngineController::class, 'update'])->name('update');
+    //        Route::delete('/{id}', [EngineController::class, 'destroy'])->name('destroy');
+    //    });
 
-
-//    Route::prefix('/routes')->name('route.')->group(function () {
-//        Route::get('/', [RouteController::class, 'index'])->name('index');
-//
-//        Route::get('/{id}', [RouteController::class, 'show'])->name('show');
-//        Route::post('/', [RouteController::class, 'store'])->name('store');
-//        Route::patch('/{id}', [RouteController::class, 'update'])->name('update');
-//        Route::delete('/{id}', [RouteController::class, 'destroy'])->name('destroy');
-//
-// @TODO add categories
-//    });
+    //    Route::prefix('/routes')->name('route.')->group(function () {
+    //        Route::get('/', [RouteController::class, 'index'])->name('index');
+    //
+    //        Route::get('/{id}', [RouteController::class, 'show'])->name('show');
+    //        Route::post('/', [RouteController::class, 'store'])->name('store');
+    //        Route::patch('/{id}', [RouteController::class, 'update'])->name('update');
+    //        Route::delete('/{id}', [RouteController::class, 'destroy'])->name('destroy');
+    //
+    // @TODO add categories
+    //    });
 });
 
 //Route::prefix('/quick')->group(function () {
 //    Route::get()
 //})
-

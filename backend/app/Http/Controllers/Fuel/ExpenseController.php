@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Fuel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
