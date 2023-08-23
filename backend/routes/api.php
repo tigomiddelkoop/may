@@ -3,6 +3,7 @@
 // Auth
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Fuel\TypeController as FuelTypeController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RouteController;
@@ -45,7 +46,6 @@ Route::middleware([])->group(function () {
         Route::prefix('/types')->name('types.')->group(function () {
             Route::get('/', [VehicleTypeController::class, 'index'])->name('index');
             Route::post('/', [VehicleTypeController::class, 'store'])->name('store');
-
             Route::middleware(['exists.vehicletype'])->group(function () {
                 Route::get('/{id}', [VehicleTypeController::class, 'show'])->name('show');
                 Route::patch('/{id}', [VehicleTypeController::class, 'update'])->name('update');
@@ -76,18 +76,26 @@ Route::middleware([])->group(function () {
     //        Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
     //    });
 
-    //    Route::prefix('/fuels')->name('fuels.')->group(function () {
-    //        Route::get('/', [FuelController::class, 'index'])->name('index');
-    //
-    //        Route::get('/{id}', [FuelController::class, 'show'])->name('show');
-    //        Route::post('/', [FuelController::class, 'store'])->name('store');
-    //        Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
-    //        Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
+    Route::prefix('/fuels')->name('fuels.')->group(function () {
+        Route::prefix('/types')->name('types.')->group(function () {
+            Route::get('/', [FuelTypeController::class, 'index'])->name('index');
+            Route::post('/', [FuelTypeController::class, 'store'])->name('store');
+            Route::middleware(['exists.fueltype'])->group(function () {
+                Route::get('/{id}', [FuelTypeController::class, 'show'])->name('show');
+                Route::patch('/{id}', [FuelTypeController::class, 'update'])->name('update');
+                Route::delete('/{id}', [FuelTypeController::class, 'destroy'])->name('destroy');
+            });
+        });
 
-    // @TODO add categories
-    // @TODO add types
+        Route::get('/', [FuelController::class, 'index'])->name('index');
+        Route::post('/', [FuelController::class, 'store'])->name('store');
+        Route::middleware(['exists.fuel'])->group(function () {
+            Route::get('/{id}', [FuelController::class, 'show'])->name('show');
+            Route::patch('/{id}', [FuelController::class, 'update'])->name('update');
+            Route::delete('/{id}', [FuelController::class, 'destroy'])->name('destroy');
+        });
 
-    //});
+    });
 
     //    Route::prefix('/locations')->name('locations.')->group(function () {
     //        Route::get('/', [LocationController::class, 'index'])->name('index');

@@ -69,5 +69,8 @@ class Kernel extends HttpKernel
 
         'exists.vehicle' => \App\Http\Middleware\Checks\VehicleExists::class,
         'exists.vehicletype' => \App\Http\Middleware\Checks\VehicleTypeExists::class,
+
+        'exists.fuel' => \App\Http\Middleware\Checks\FuelExists::class,
+        'exists.fueltype' => \App\Http\Middleware\Checks\FuelTypeExists::class,
     ];
 }

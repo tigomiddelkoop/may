@@ -10,6 +10,8 @@ class FuelType extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function fuels(): hasMany
     {
         return $this->hasMany(Fuel::class);

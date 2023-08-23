@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Vehicle\StoreRequest;
 use App\Http\Requests\Vehicle\UpdateRequest;
 use App\Models\Vehicle;
+use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -40,7 +41,11 @@ class VehicleController extends Controller
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
 
-        $vehicle->save();
+        $saved = $vehicle->save();
+
+        if (! $saved) {
+            abort(502, 'Something went wrong saving the vehicle');
+        }
 
         return $vehicle->refresh();
     }
@@ -59,12 +64,16 @@ class VehicleController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
-        $vehicle = Vehicle::find($id)->update($validated);
+        $updated = Vehicle::find($id)->update($validated);
 
         // @TODO fix the assocs with relations when they change
         // $vehicle->vehicleType()->associate($validated['vehicle_type']);
         // $vehicle->engineType()->associate($validated['engine_type']);-
         // $vehicle->defaultFuelType()->associate($validated['fuel_type']);
+
+        if (! $updated) {
+            abort(502, 'Something went wrong updating the vehicle');
+        }
 
         return Vehicle::find($id);
     }
@@ -72,8 +81,14 @@ class VehicleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        return Vehicle::destroy($id);
+        $destroyed = Vehicle::destroy($id);
+
+        if (! $destroyed) {
+            abort(502, 'Something went wrong deleting the vehicle');
+        }
+
+        return ['code' => 'MAY-2000', 'message' => 'Vehicle has been deleted'];
     }
 }

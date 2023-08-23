@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VehicleType\StoreRequest;
-use App\Http\Requests\VehicleType\UpdateRequest;
+use App\Http\Requests\Categories\StoreRequest;
+use App\Http\Requests\Categories\UpdateRequest;
 use App\Models\VehicleType;
 
 class TypeController extends Controller
@@ -27,7 +27,11 @@ class TypeController extends Controller
 
         $vehicleType->name = $validated['name'];
 
-        $vehicleType->save();
+        $saved = $vehicleType->save();
+
+        if (! $saved) {
+            abort(502, 'Something went wrong saving the vehicle type');
+        }
 
         return $vehicleType->refresh();
     }
@@ -46,7 +50,11 @@ class TypeController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
-        VehicleType::find($id)->update($validated);
+        $updated = VehicleType::find($id)->update($validated);
+
+        if (! $updated) {
+            abort(502, 'Something went wrong updating the vehicle type');
+        }
 
         return VehicleType::find($id);
     }
@@ -56,6 +64,12 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        return VehicleType::destroy($id);
+        $destroyed = VehicleType::destroy($id);
+
+        if (! $destroyed) {
+            abort(502, 'Something went wrong deleting the vehicle type');
+        }
+
+        return ['code' => 'MAY-2000', 'message' => 'Vehicle type has been deleted'];
     }
 }
