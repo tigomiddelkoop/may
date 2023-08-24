@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
             'engine_type_id' => 'required|numeric',
             'default_fuel_type_id' => 'required|numeric',
 
-            'note' => 'text',
+            'note' => 'string',
         ];
     }
 }

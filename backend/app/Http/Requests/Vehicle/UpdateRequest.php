@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
             'engine_type_id' => 'numeric',
             'default_fuel_type_id' => 'numeric',
 
-            'note' => 'text',
+            'note' => 'string',
         ];
     }
 }
