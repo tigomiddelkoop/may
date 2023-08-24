@@ -19,12 +19,6 @@ class Vehicle extends Model
         'license_plate_country',
     ];
 
-    protected $hidden = [
-        'default_fuel_type_id',
-        'engine_type_id',
-        'vehicle_type_id',
-    ];
-
     public function defaultFuelType(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);

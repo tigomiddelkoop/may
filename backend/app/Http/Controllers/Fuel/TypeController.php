@@ -59,9 +59,13 @@ class TypeController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
+        $fuelType = FuelType::find($id);
 
-        $updated = FuelType::find($id)->update($validated);
+        if (isset($validated['name']) && $fuelType->name != $validated['name']) {
+            $fuelType->name = $validated['name'];
+        }
 
+        $updated = $fuelType->update();
         if (! $updated) {
             return new ErrorResponse();
         }

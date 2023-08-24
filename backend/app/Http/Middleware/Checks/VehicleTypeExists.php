@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Checks;
 
+use App\Classes\NotFoundResponse;
 use App\Models\VehicleType;
 use Closure;
 use Illuminate\Http\JsonResponse;
@@ -14,7 +15,7 @@ class VehicleTypeExists
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next): JsonResponse|NotFoundResponse
     {
         if (! is_numeric($request->id)) {
             return new JsonResponse([
@@ -24,20 +25,8 @@ class VehicleTypeExists
             ], 404);
         }
 
-        if (! $request->id) {
-            return new JsonResponse([
-                'code' => 'MAY-4004',
-                'message' => 'Vehicle type not found',
-                'data' => [],
-            ], 404);
-        }
-
         if (! VehicleType::where('id', $request->id)->exists()) {
-            return new JsonResponse([
-                'code' => 'MAY-4004',
-                'message' => 'Vehicle type not found',
-                'data' => [],
-            ], 404);
+            return new NotFoundResponse();
         }
 
         return $next($request);
