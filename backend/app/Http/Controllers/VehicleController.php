@@ -40,9 +40,9 @@ class VehicleController extends Controller
         $vehicle->license_plate = $validated['license_plate'];
         $vehicle->license_plate_country = $validated['license_plate_country'];
 
-        $vehicle->vehicleType()->associate($validated['vehicle_type']);
-        $vehicle->engineType()->associate($validated['engine_type']);
-        $vehicle->defaultFuelType()->associate($validated['default_fuel_type']);
+        $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
+        $vehicle->engineType()->associate($validated['engine_type_id']);
+        $vehicle->defaultFuelType()->associate($validated['default_fuel_type_id']);
 
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
@@ -72,13 +72,41 @@ class VehicleController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
-        $updated = Vehicle::find($id)->update($validated);
+        $vehicle = Vehicle::find($id);
 
-        // @TODO fix the assocs with relations when they change
-        // $vehicle->vehicleType()->associate($validated['vehicle_type']);
-        // $vehicle->engineType()->associate($validated['engine_type']);-
-        // $vehicle->defaultFuelType()->associate($validated['fuel_type']);
+        if (isset($validated['model']) && $vehicle->model != $validated['model']) {
+            $vehicle->model = $validated['model'];
+        }
 
+        if (isset($validated['license_plate']) && $vehicle->license_plate != $validated['license_plate']) {
+            $vehicle->license_plate = $validated['license_plate'];
+        }
+
+        if (isset($validated['license_plate_country']) && $vehicle->license_plate_country != $validated['license_plate_country']) {
+            $vehicle->license_plate_country = $validated['license_plate_country'];
+        }
+
+        if (isset($validated['vin_number']) && $vehicle->vin_number != $validated['vin_number']) {
+            $vehicle->vin_number = $validated['vin_number'];
+        }
+
+        if (isset($validated['initial_kilometers']) && $vehicle->initial_kilometers != $validated['initial_kilometers']) {
+            $vehicle->initial_kilometers = $validated['initial_kilometers'];
+        }
+
+        if (isset($validated['vehicle_type_id']) && $vehicle->vehicle_type_id != $validated['vehicle_type_id']) {
+            $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
+        }
+
+        if (isset($validated['engine_type_id']) && $vehicle->engine_type_id != $validated['engine_type_id']) {
+            $vehicle->engineType()->associate($validated['engine_type_id']);
+        }
+
+        if (isset($validated['default_fuel_type_id']) && $vehicle->default_fuel_type_id != $validated['default_fuel_type_id']) {
+            $vehicle->defaultFuelType()->associate($validated['default_fuel_type_id']);
+        }
+
+        $updated = $vehicle->update();
         if (! $updated) {
             return new ErrorResponse();
         }

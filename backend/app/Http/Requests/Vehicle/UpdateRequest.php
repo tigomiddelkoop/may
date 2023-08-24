@@ -30,9 +30,9 @@ class UpdateRequest extends FormRequest
 
             'initial_kilometers' => 'numeric',
 
-            'vehicle_type' => 'numeric',
-            'engine_type' => 'numeric',
-            'default_fuel_type' => 'numeric',
+            'vehicle_type_id' => 'numeric',
+            'engine_type_id' => 'numeric',
+            'default_fuel_type_id' => 'numeric',
 
             'note' => 'text',
         ];
