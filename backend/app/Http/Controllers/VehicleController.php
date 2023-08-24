@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\DestroyResponse;
+use App\Classes\ErrorResponse;
+use App\Classes\GetResponse;
+use App\Classes\StoreResponse;
+use App\Classes\UpdateResponse;
 use App\Http\Requests\Vehicle\StoreRequest;
 use App\Http\Requests\Vehicle\UpdateRequest;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -14,7 +18,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->orderBy('id')->get();
+        $vehicles = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->orderBy('id')->get();
+
+        return new GetResponse($vehicles);
     }
 
     /**
@@ -44,10 +50,10 @@ class VehicleController extends Controller
         $saved = $vehicle->save();
 
         if (! $saved) {
-            abort(502, 'Something went wrong saving the vehicle');
+            return new ErrorResponse();
         }
 
-        return $vehicle->refresh();
+        return new StoreResponse($vehicle->refresh());
     }
 
     /**
@@ -55,7 +61,9 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        return Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->find($id);
+        $vehicle = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->find($id);
+
+        return new GetResponse($vehicle);
     }
 
     /**
@@ -72,23 +80,23 @@ class VehicleController extends Controller
         // $vehicle->defaultFuelType()->associate($validated['fuel_type']);
 
         if (! $updated) {
-            abort(502, 'Something went wrong updating the vehicle');
+            return new ErrorResponse();
         }
 
-        return Vehicle::find($id);
+        return new UpdateResponse(Vehicle::find($id));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(string $id)
     {
         $destroyed = Vehicle::destroy($id);
 
         if (! $destroyed) {
-            abort(502, 'Something went wrong deleting the vehicle');
+            return new ErrorResponse();
         }
 
-        return ['code' => 'MAY-2000', 'message' => 'Vehicle has been deleted'];
+        return new DestroyResponse();
     }
 }

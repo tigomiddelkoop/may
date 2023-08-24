@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// This only exists to test the app with, this route will dissappear
-Route::get('/', function () {
-    return [
-        'title' => 'Welcome to May, a third generation Vehicle Tracking Tool',
-        'version' => '0.0.1',
-    ];
+Route::any('/', function () {
+    return new \App\Classes\Response(
+        data: [
+            'version' => '0.0.1',
+        ],
+        message: 'Welcome to May, a third generation Vehicle Tracking Tool',
+    );
 });
 
 Route::prefix('/auth')->name('auth.')->group(function () {
@@ -43,6 +44,7 @@ Route::prefix('/users')->name('users.')->group(function () {
 Route::middleware([])->group(function () {
     Route::prefix('/vehicles')->name('vehicles.')->group(function () {
 
+        // Vehicle Types
         Route::prefix('/types')->name('types.')->group(function () {
             Route::get('/', [VehicleTypeController::class, 'index'])->name('index');
             Route::post('/', [VehicleTypeController::class, 'store'])->name('store');
@@ -53,11 +55,13 @@ Route::middleware([])->group(function () {
             });
         });
 
+        // Overview
         Route::prefix('/overview')->name('overview.')->group(function () {
             Route::get('/', [VehicleOverviewController::class, 'index'])->name('index');
             Route::get('/{licence_plate}', [VehicleOverviewController::class, 'show'])->name('show');
         });
 
+        // Vehicles
         Route::get('/', [VehicleController::class, 'index'])->name('index');
         Route::post('/', [VehicleController::class, 'store'])->name('store');
         Route::middleware(['exists.vehicle'])->group(function () {

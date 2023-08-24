@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Fuel;
 
+use App\Classes\DestroyResponse;
+use App\Classes\ErrorResponse;
+use App\Classes\GetResponse;
+use App\Classes\StoreResponse;
+use App\Classes\UpdateResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\StoreRequest;
 use App\Http\Requests\Categories\UpdateRequest;
@@ -14,7 +19,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return FuelType::orderBy('id')->get();
+        $fueltypes = FuelType::orderBy('id')->get();
+
+        return new GetResponse($fueltypes);
     }
 
     /**
@@ -29,11 +36,11 @@ class TypeController extends Controller
 
         $saved = $fuelType->save();
 
-        if (!$saved) {
-            abort(502, 'Something went wrong saving the fuel type');
+        if (! $saved) {
+            return new ErrorResponse();
         }
 
-        return $fuelType->refresh();
+        return new StoreResponse($fuelType->refresh());
     }
 
     /**
@@ -41,7 +48,9 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-        return FuelType::find($id);
+        $fueltype = FuelType::find($id);
+
+        return new GetResponse($fueltype);
     }
 
     /**
@@ -53,11 +62,11 @@ class TypeController extends Controller
 
         $updated = FuelType::find($id)->update($validated);
 
-        if (!$updated) {
-            abort(502, 'Something went wrong updating the fuel type');
+        if (! $updated) {
+            return new ErrorResponse();
         }
 
-        return FuelType::find($id);
+        return new UpdateResponse(FuelType::find($id));
     }
 
     /**
@@ -67,10 +76,10 @@ class TypeController extends Controller
     {
         $destroyed = FuelType::destroy($id);
 
-        if (!$destroyed) {
-            abort(502, 'Something went wrong deleting the fuel type');
+        if (! $destroyed) {
+            return new ErrorResponse();
         }
 
-        return ['code' => 'MAY-2000', 'message' => 'Fuel Type has been deleted'];
+        return new DestroyResponse();
     }
 }

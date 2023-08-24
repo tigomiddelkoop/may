@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Vehicle;
 
+use App\Classes\DestroyResponse;
+use App\Classes\ErrorResponse;
+use App\Classes\GetResponse;
+use App\Classes\StoreResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\StoreRequest;
 use App\Http\Requests\Categories\UpdateRequest;
@@ -14,7 +18,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return VehicleType::orderBy('id')->get();
+        $vehicleTypes = VehicleType::orderBy('id')->get();
+
+        return new GetResponse($vehicleTypes);
     }
 
     /**
@@ -30,10 +36,10 @@ class TypeController extends Controller
         $saved = $vehicleType->save();
 
         if (! $saved) {
-            abort(502, 'Something went wrong saving the vehicle type');
+            return new ErrorResponse();
         }
 
-        return $vehicleType->refresh();
+        return new StoreResponse($vehicleType->refresh());
     }
 
     /**
@@ -41,7 +47,9 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-        return VehicleType::find($id);
+        $vehicleType = VehicleType::find($id);
+
+        return new GetResponse($vehicleType);
     }
 
     /**
@@ -53,7 +61,7 @@ class TypeController extends Controller
         $updated = VehicleType::find($id)->update($validated);
 
         if (! $updated) {
-            abort(502, 'Something went wrong updating the vehicle type');
+            return new ErrorResponse();
         }
 
         return VehicleType::find($id);
@@ -67,9 +75,9 @@ class TypeController extends Controller
         $destroyed = VehicleType::destroy($id);
 
         if (! $destroyed) {
-            abort(502, 'Something went wrong deleting the vehicle type');
+            return new ErrorResponse();
         }
 
-        return ['code' => 'MAY-2000', 'message' => 'Vehicle type has been deleted'];
+        return new DestroyResponse();
     }
 }
