@@ -10,7 +10,7 @@ class StoreResponse extends BaseResponse
     public function __construct(
         public readonly mixed $data,
         public readonly int $status = Response::HTTP_CREATED,
-        public readonly string $message = 'Data stored'
+        public readonly string $message = 'Data has been stored'
     ) {
     }
 }

@@ -6,6 +6,7 @@ use App\Classes\DestroyResponse;
 use App\Classes\ErrorResponse;
 use App\Classes\GetResponse;
 use App\Classes\StoreResponse;
+use App\Classes\UpdateResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\StoreRequest;
 use App\Http\Requests\Categories\UpdateRequest;
@@ -69,7 +70,7 @@ class TypeController extends Controller
             return new ErrorResponse('An error has occurred when updating the engine type');
         }
 
-        return EngineType::find($id);
+        return new UpdateResponse(EngineType::find($id));
     }
 
     /**

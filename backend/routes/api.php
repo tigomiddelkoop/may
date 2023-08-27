@@ -126,11 +126,12 @@ Route::middleware([])->group(function () {
     Route::prefix('/engines')->name('engines.')->group(function () {
         Route::prefix('/types')->name('types.')->group(function () {
             Route::get('/', [EngineTypeController::class, 'index'])->name('index');
-
-            Route::get('/{id}', [EngineTypeController::class, 'show'])->name('show');
             Route::post('/', [EngineTypeController::class, 'store'])->name('store');
-            Route::patch('/{id}', [EngineTypeController::class, 'update'])->name('update');
-            Route::delete('/{id}', [EngineTypeController::class, 'destroy'])->name('destroy');
+            Route::middleware(['exists.engine.type'])->group(function () {
+                Route::get('/{id}', [EngineTypeController::class, 'show'])->name('show');
+                Route::patch('/{id}', [EngineTypeController::class, 'update'])->name('update');
+                Route::delete('/{id}', [EngineTypeController::class, 'destroy'])->name('destroy');
+            });
         });
     });
 
