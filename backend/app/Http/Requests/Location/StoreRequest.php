@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Fuel;
+namespace App\Http\Requests\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,8 +23,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'string',
-            'fuel_type_id' => 'required|numeric',
+            'address' => 'required|string',
+            'location_category_id' => 'required|numeric',
         ];
     }
 }

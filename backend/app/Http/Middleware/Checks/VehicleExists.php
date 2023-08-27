@@ -5,8 +5,8 @@ namespace App\Http\Middleware\Checks;
 use App\Classes\NotFoundResponse;
 use App\Models\Vehicle;
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class VehicleExists
 {
@@ -15,14 +15,10 @@ class VehicleExists
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): JsonResponse|NotFoundResponse
+    public function handle(Request $request, Closure $next): Response|NotFoundResponse
     {
         if (! is_numeric($request->id)) {
-            return new JsonResponse([
-                'code' => 'MAY-4000',
-                'message' => 'Specified ID is not a number',
-                'data' => [],
-            ], 404);
+            return new NotFoundResponse('Specified ID is not a number');
         }
 
         if (! Vehicle::where('id', $request->id)->exists()) {

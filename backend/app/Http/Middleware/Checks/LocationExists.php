@@ -3,12 +3,12 @@
 namespace App\Http\Middleware\Checks;
 
 use App\Classes\NotFoundResponse;
-use App\Models\VehicleType;
+use App\Models\Location;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class VehicleTypeExists
+class LocationExists
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class VehicleTypeExists
             return new NotFoundResponse('Specified ID is not a number');
         }
 
-        if (! VehicleType::where('id', $request->id)->exists()) {
+        if (! Location::where('id', $request->id)->exists()) {
             return new NotFoundResponse();
         }
 

@@ -34,7 +34,7 @@ class TypeController extends Controller
 
         $fuelType->name = $validated['name'];
 
-        $saved = $fuelType->save();
+        $saved = $fuelType->saveOrFail();
 
         if (! $saved) {
             return new ErrorResponse();
@@ -81,7 +81,7 @@ class TypeController extends Controller
         $destroyed = FuelType::destroy($id);
 
         if (! $destroyed) {
-            return new ErrorResponse();
+            return new ErrorResponse('Something went wrong deleting the fuel type');
         }
 
         return new DestroyResponse();

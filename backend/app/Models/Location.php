@@ -11,16 +11,6 @@ class Location extends Model
 {
     use HasFactory;
 
-    public function repairExpenses(): HasMany
-    {
-        return $this->hasMany(RepairExpense::class);
-    }
-
-    public function cleaningExpenses(): HasMany
-    {
-        return $this->hasMany(CleaningExpense::class);
-    }
-
     public function fuelExpenses(): HasMany
     {
         return $this->hasMany(FuelExpense::class);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Fuel;
+namespace App\Http\Requests\Location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'description' => 'string',
-            'fuel_type_id' => 'required|numeric',
+            'name' => 'string',
+            'address' => 'string',
+            'location_category_id' => 'numeric',
         ];
     }
 }

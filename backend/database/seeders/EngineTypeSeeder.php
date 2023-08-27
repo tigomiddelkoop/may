@@ -14,10 +14,10 @@ class EngineTypeSeeder extends Seeder
     {
         $combustion = new EngineType();
         $combustion->name = 'Combustion';
-        $combustion->save();
+        $combustion->saveOrFail();
 
         $electric = new EngineType();
         $electric->name = 'Electric';
-        $electric->save();
+        $electric->saveOrFail();
     }
 }

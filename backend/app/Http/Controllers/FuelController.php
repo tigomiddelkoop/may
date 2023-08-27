@@ -32,11 +32,14 @@ class FuelController extends Controller
         $fuel = new Fuel();
 
         $fuel->name = $validated['name'];
-        $fuel->description = $validated['description'];
+
+        if (isset($validated['description']) && $fuel->description != $validated['description']) {
+            $fuel->description = $validated['description'];
+        }
 
         $fuel->fuelType()->associate($validated['fuel_type_id']);
 
-        $saved = $fuel->save();
+        $saved = $fuel->saveOrFail();
 
         if (! $saved) {
             return new ErrorResponse();
@@ -91,7 +94,7 @@ class FuelController extends Controller
         $destroyed = Fuel::destroy($id);
 
         if (! $destroyed) {
-            return new ErrorResponse();
+            return new ErrorResponse('Something went wrong deleting the fuel');
         }
 
         return new DestroyResponse();

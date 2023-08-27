@@ -68,9 +68,12 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'exists.vehicle' => \App\Http\Middleware\Checks\VehicleExists::class,
-        'exists.vehicletype' => \App\Http\Middleware\Checks\VehicleTypeExists::class,
+        'exists.vehicle.type' => \App\Http\Middleware\Checks\VehicleTypeExists::class,
 
         'exists.fuel' => \App\Http\Middleware\Checks\FuelExists::class,
-        'exists.fueltype' => \App\Http\Middleware\Checks\FuelTypeExists::class,
+        'exists.fuel.type' => \App\Http\Middleware\Checks\FuelTypeExists::class,
+
+        'exists.location' => \App\Http\Middleware\Checks\LocationExists::class,
+        'exists.location.category' => \App\Http\Middleware\Checks\LocationCategoryExists::class,
     ];
 }

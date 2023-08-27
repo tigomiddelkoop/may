@@ -14,14 +14,14 @@ class VehicleTypeSeeder extends Seeder
     {
         $car = new VehicleType();
         $car->name = 'Car';
-        $car->save();
+        $car->saveOrFail();
 
         $truck = new VehicleType();
         $truck->name = 'Truck';
-        $truck->save();
+        $truck->saveOrFail();
 
         $motor = new VehicleType();
         $motor->name = 'Motor';
-        $motor->save();
+        $motor->saveOrFail();
     }
 }

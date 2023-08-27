@@ -33,7 +33,7 @@ class TypeController extends Controller
 
         $vehicleType->name = $validated['name'];
 
-        $saved = $vehicleType->save();
+        $saved = $vehicleType->saveOrFail();
 
         if (! $saved) {
             return new ErrorResponse();

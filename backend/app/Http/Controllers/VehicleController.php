@@ -54,7 +54,7 @@ class VehicleController extends Controller
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
 
-        $saved = $vehicle->save();
+        $saved = $vehicle->saveOrFail();
 
         if (! $saved) {
             return new ErrorResponse();
@@ -133,7 +133,7 @@ class VehicleController extends Controller
         $destroyed = Vehicle::destroy($id);
 
         if (! $destroyed) {
-            return new ErrorResponse();
+            return new ErrorResponse('Something went wrong deleting the vehicle');
         }
 
         return new DestroyResponse();

@@ -14,18 +14,18 @@ class ActivityCategorySeeder extends Seeder
     {
         $small_repair = new ActivityCategory();
         $small_repair->name = 'Small Repair';
-        $small_repair->save();
+        $small_repair->saveOrFail();
 
         $big_repair = new ActivityCategory();
         $big_repair->name = 'Big Repair';
-        $big_repair->save();
+        $big_repair->saveOrFail();
 
         $cleaning = new ActivityCategory();
         $cleaning->name = 'Cleaning';
-        $cleaning->save();
+        $cleaning->saveOrFail();
 
         $tyre_air = new ActivityCategory();
         $tyre_air->name = 'Tyre air';
-        $tyre_air->save();
+        $tyre_air->saveOrFail();
     }
 }
