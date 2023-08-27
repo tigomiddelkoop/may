@@ -32,7 +32,7 @@ class StoreRequest extends FormRequest
 
             'vehicle_type_id' => 'required|numeric',
             'engine_type_id' => 'required|numeric',
-            'default_fuel_type_id' => 'required|numeric',
+            'default_fuel_type_id' => 'required|numeric|exists:\App\Models\FuelType,id',
 
             'note' => 'string',
         ];

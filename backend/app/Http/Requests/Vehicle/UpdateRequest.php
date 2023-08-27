@@ -32,7 +32,7 @@ class UpdateRequest extends FormRequest
 
             'vehicle_type_id' => 'numeric',
             'engine_type_id' => 'numeric',
-            'default_fuel_type_id' => 'numeric',
+            'default_fuel_type_id' => 'numeric|exists:\App\Models\FuelType,id',
 
             'note' => 'string',
         ];
