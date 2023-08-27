@@ -38,14 +38,14 @@ class VehicleController extends Controller
 
         if (isset($validated['vin_number']) && $vehicle->vin_number != $validated['vin_number']) {
             $vehicle->vin_number = $validated['vin_number'];
-        };
+        }
 
         $vehicle->license_plate = $validated['license_plate'];
         $vehicle->license_plate_country = $validated['license_plate_country'];
 
         if (isset($validated['note']) && $vehicle->note != $validated['note']) {
             $vehicle->note = $validated['note'];
-        };
+        }
 
         $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
         $vehicle->engineType()->associate($validated['engine_type_id']);
@@ -56,7 +56,7 @@ class VehicleController extends Controller
 
         $saved = $vehicle->save();
 
-        if (!$saved) {
+        if (! $saved) {
             return new ErrorResponse();
         }
 
@@ -103,7 +103,7 @@ class VehicleController extends Controller
 
         if (isset($validated['note']) && $vehicle->note != $validated['note']) {
             $vehicle->note = $validated['note'];
-        };
+        }
 
         if (isset($validated['vehicle_type_id']) && $vehicle->vehicle_type_id != $validated['vehicle_type_id']) {
             $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
@@ -118,7 +118,7 @@ class VehicleController extends Controller
         }
 
         $updated = $vehicle->update();
-        if (!$updated) {
+        if (! $updated) {
             return new ErrorResponse();
         }
 
@@ -132,7 +132,7 @@ class VehicleController extends Controller
     {
         $destroyed = Vehicle::destroy($id);
 
-        if (!$destroyed) {
+        if (! $destroyed) {
             return new ErrorResponse();
         }
 
