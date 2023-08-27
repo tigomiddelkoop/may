@@ -77,5 +77,8 @@ class Kernel extends HttpKernel
 
         'exists.location' => \App\Http\Middleware\Checks\LocationExists::class,
         'exists.location.category' => \App\Http\Middleware\Checks\LocationCategoryExists::class,
+
+        'exists.activity.category' => \App\Http\Middleware\Checks\ActivityCategoryExists::class,
+        'exists.activity.expenses' => \App\Http\Middleware\Checks\ActivityExpenseExists::class,
     ];
 }

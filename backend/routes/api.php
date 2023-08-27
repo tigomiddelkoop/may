@@ -1,9 +1,11 @@
 <?php
 
-// Auth
+use App\Http\Controllers\Activity\CategoryController as ActivityCategoryController;
+use App\Http\Controllers\Activity\ExpenseController as ActivityExpenseController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Engine\TypeController as EngineTypeController;
+use App\Http\Controllers\Fuel\ExpenseController as FuelExpenseController;
 use App\Http\Controllers\Fuel\TypeController as FuelTypeController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\Location\CategoryController as LocationCategoryController;
@@ -44,8 +46,6 @@ Route::prefix('/users')->name('users.')->group(function () {
 
 Route::middleware([])->group(function () {
     Route::prefix('/vehicles')->name('vehicles.')->group(function () {
-
-        // Vehicle Types
         Route::prefix('/types')->name('types.')->group(function () {
             Route::get('/', [VehicleTypeController::class, 'index'])->name('index');
             Route::post('/', [VehicleTypeController::class, 'store'])->name('store');
@@ -56,13 +56,11 @@ Route::middleware([])->group(function () {
             });
         });
 
-        // Overview
         Route::prefix('/overview')->name('overview.')->group(function () {
             Route::get('/', [VehicleOverviewController::class, 'index'])->name('index');
             Route::get('/{licence_plate}', [VehicleOverviewController::class, 'show'])->name('show');
         });
 
-        // Vehicles
         Route::get('/', [VehicleController::class, 'index'])->name('index');
         Route::post('/', [VehicleController::class, 'store'])->name('store');
         Route::middleware(['exists.vehicle'])->group(function () {
@@ -72,16 +70,16 @@ Route::middleware([])->group(function () {
         });
     });
 
-    //    Route::prefix('/expenses')->name('expenses.')->group(function () {
-    //        Route::get('/', [FuelExpenseController::class, 'index'])->name('index');
-    //
-    //        Route::get('/{id}', [FuelExpenseController::class, 'show'])->name('show');
-    //        Route::post('/', [FuelExpenseController::class, 'store'])->name('store');
-    //        Route::patch('/{id}', [FuelExpenseController::class, 'update'])->name('update');
-    //        Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
-    //    });
-
     Route::prefix('/fuels')->name('fuels.')->group(function () {
+        Route::prefix('/expenses')->name('expenses.')->group(function () {
+            Route::get('/', [FuelExpenseController::class, 'index'])->name('index');
+
+            Route::get('/{id}', [FuelExpenseController::class, 'show'])->name('show');
+            Route::post('/', [FuelExpenseController::class, 'store'])->name('store');
+            Route::patch('/{id}', [FuelExpenseController::class, 'update'])->name('update');
+            Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
+        });
+
         Route::prefix('/types')->name('types.')->group(function () {
             Route::get('/', [FuelTypeController::class, 'index'])->name('index');
             Route::post('/', [FuelTypeController::class, 'store'])->name('store');
@@ -103,7 +101,6 @@ Route::middleware([])->group(function () {
     });
 
     Route::prefix('/locations')->name('locations.')->group(function () {
-
         Route::prefix('/categories')->name('categories.')->group(function () {
             Route::get('/', [LocationCategoryController::class, 'index'])->name('index');
             Route::post('/', [LocationCategoryController::class, 'store'])->name('store');
@@ -145,6 +142,27 @@ Route::middleware([])->group(function () {
     //
     // @TODO add categories
     //    });
+
+    Route::prefix('/activities')->name('activities.')->group(function () {
+        Route::prefix('/categories')->name('categories')->group(function () {
+            Route::get('/', [ActivityCategoryController::class, 'index'])->name('index');
+            Route::post('/', [ActivityCategoryController::class, 'store'])->name('store');
+            Route::middleware(['exists.activity.category'])->group(function () {
+                Route::get('/{id}', [ActivityCategoryController::class, 'show'])->name('show');
+                Route::patch('/{id}', [ActivityCategoryController::class, 'update'])->name('update');
+                Route::delete('/{id}', [ActivityCategoryController::class, 'destroy'])->name('destroy');
+            });
+        });
+        Route::prefix('/expenses')->name('expenses')->group(function () {
+            Route::get('/', [ActivityExpenseController::class, 'index'])->name('index');
+            Route::post('/', [ActivityExpenseController::class, 'store'])->name('store');
+            Route::middleware(['exists.activity.expenses'])->group(function () {
+                Route::get('/{id}', [ActivityExpenseController::class, 'show'])->name('show');
+                Route::patch('/{id}', [ActivityExpenseController::class, 'update'])->name('update');
+                Route::delete('/{id}', [ActivityExpenseController::class, 'destroy'])->name('destroy');
+            });
+        });
+    });
 });
 
 //Route::prefix('/quick')->group(function () {
