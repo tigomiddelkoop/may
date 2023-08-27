@@ -3,11 +3,11 @@
 // Auth
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Engine\TypeController as EngineTypeController;
 use App\Http\Controllers\Fuel\TypeController as FuelTypeController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\Location\CategoryController as LocationCategoryController;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\RouteController;
 use App\Http\Controllers\Vehicle\OverviewController as VehicleOverviewController;
 use App\Http\Controllers\Vehicle\TypeController as VehicleTypeController;
 use App\Http\Controllers\VehicleController;
@@ -123,14 +123,16 @@ Route::middleware([])->group(function () {
         });
     });
 
-    //    Route::prefix('engines')->name('engines.')->group(function () {
-    //        Route::get('/', [EngineController::class, 'index'])->name('index');
-    //
-    //        Route::get('/{id}', [EngineController::class, 'show'])->name('show');
-    //        Route::post('/', [EngineController::class, 'store'])->name('store');
-    //        Route::patch('/{id}', [EngineController::class, 'update'])->name('update');
-    //        Route::delete('/{id}', [EngineController::class, 'destroy'])->name('destroy');
-    //    });
+    Route::prefix('/engines')->name('engines.')->group(function () {
+        Route::prefix('/types')->name('types.')->group(function () {
+            Route::get('/', [EngineTypeController::class, 'index'])->name('index');
+
+            Route::get('/{id}', [EngineTypeController::class, 'show'])->name('show');
+            Route::post('/', [EngineTypeController::class, 'store'])->name('store');
+            Route::patch('/{id}', [EngineTypeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [EngineTypeController::class, 'destroy'])->name('destroy');
+        });
+    });
 
     //    Route::prefix('/routes')->name('route.')->group(function () {
     //        Route::get('/', [RouteController::class, 'index'])->name('index');

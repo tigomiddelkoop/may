@@ -39,7 +39,7 @@ class LocationController extends Controller
         $saved = $location->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when storing the location');
         }
 
         return new StoreResponse($location->refresh());
@@ -78,7 +78,7 @@ class LocationController extends Controller
 
         $updated = $location->update();
         if (! $updated) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when updating the location');
         }
 
         return new UpdateResponse(Location::find($id));

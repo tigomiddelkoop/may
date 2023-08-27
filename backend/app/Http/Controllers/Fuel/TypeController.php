@@ -37,7 +37,7 @@ class TypeController extends Controller
         $saved = $fuelType->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when storing the engine type');
         }
 
         return new StoreResponse($fuelType->refresh());
@@ -67,7 +67,7 @@ class TypeController extends Controller
 
         $updated = $fuelType->update();
         if (! $updated) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when updating the fuel type');
         }
 
         return new UpdateResponse(FuelType::find($id));

@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $saved = $locationCategory->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when storing the location category');
         }
 
         return new StoreResponse($locationCategory->refresh());
@@ -66,7 +66,7 @@ class CategoryController extends Controller
 
         $updated = $locationCategory->update();
         if (! $updated) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when updating the location category');
         }
 
         return LocationCategory::find($id);

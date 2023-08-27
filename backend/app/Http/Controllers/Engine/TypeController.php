@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Vehicle;
+namespace App\Http\Controllers\Engine;
 
 use App\Classes\DestroyResponse;
 use App\Classes\ErrorResponse;
@@ -9,7 +9,7 @@ use App\Classes\StoreResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Categories\StoreRequest;
 use App\Http\Requests\Categories\UpdateRequest;
-use App\Models\VehicleType;
+use App\Models\EngineType;
 
 class TypeController extends Controller
 {
@@ -18,9 +18,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $vehicleTypes = VehicleType::orderBy('id')->get();
+        $engineTypes = EngineType::orderBy('id')->get();
 
-        return new GetResponse($vehicleTypes);
+        return new GetResponse($engineTypes);
     }
 
     /**
@@ -29,17 +29,17 @@ class TypeController extends Controller
     public function store(StoreRequest $request)
     {
         $validated = $request->validated();
-        $vehicleType = new VehicleType();
+        $engineType = new EngineType();
 
-        $vehicleType->name = $validated['name'];
+        $engineType->name = $validated['name'];
 
-        $saved = $vehicleType->saveOrFail();
+        $saved = $engineType->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse('An error has occurred when storing the vehicle type');
+            return new ErrorResponse('An error has occurred when storing the engine type');
         }
 
-        return new StoreResponse($vehicleType->refresh());
+        return new StoreResponse($engineType->refresh());
     }
 
     /**
@@ -47,9 +47,9 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-        $vehicleType = VehicleType::find($id);
+        $engineType = EngineType::with(['vehicles'])->find($id);
 
-        return new GetResponse($vehicleType);
+        return new GetResponse($engineType);
     }
 
     /**
@@ -58,18 +58,18 @@ class TypeController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
-        $vehicleType = VehicleType::find($id);
+        $engineType = EngineType::find($id);
 
-        if (isset($validated['name']) && $vehicleType->name != $validated['name']) {
-            $vehicleType->name = $validated['name'];
+        if (isset($validated['name']) && $engineType->name != $validated['name']) {
+            $engineType->name = $validated['name'];
         }
 
-        $updated = $vehicleType->update();
+        $updated = $engineType->update();
         if (! $updated) {
-            return new ErrorResponse('An error has occurred when updating the vehicle type');
+            return new ErrorResponse('An error has occurred when updating the engine type');
         }
 
-        return VehicleType::find($id);
+        return EngineType::find($id);
     }
 
     /**
@@ -77,10 +77,10 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        $destroyed = VehicleType::destroy($id);
+        $destroyed = EngineType::destroy($id);
 
         if (! $destroyed) {
-            return new ErrorResponse();
+            return new ErrorResponse('Something went wrong deleting the engine type');
         }
 
         return new DestroyResponse();

@@ -42,7 +42,7 @@ class FuelController extends Controller
         $saved = $fuel->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when storing the fuel');
         }
 
         return new StoreResponse($fuel->refresh());
@@ -80,7 +80,7 @@ class FuelController extends Controller
 
         $updated = $fuel->update();
         if (! $updated) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when updating the fuel');
         }
 
         return new UpdateResponse(Fuel::find($id));

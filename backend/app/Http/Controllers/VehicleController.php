@@ -57,7 +57,7 @@ class VehicleController extends Controller
         $saved = $vehicle->saveOrFail();
 
         if (! $saved) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when storing the vehicle');
         }
 
         return new StoreResponse($vehicle->refresh());
@@ -119,7 +119,7 @@ class VehicleController extends Controller
 
         $updated = $vehicle->update();
         if (! $updated) {
-            return new ErrorResponse();
+            return new ErrorResponse('An error has occurred when updating the vehicle');
         }
 
         return new UpdateResponse(Vehicle::find($id));
