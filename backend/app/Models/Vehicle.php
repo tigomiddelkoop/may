@@ -10,7 +10,7 @@ class Vehicle extends Model
 {
     use HasFactory;
 
-    public function defaultFuelType(): BelongsTo
+    public function defaultFuel(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);
     }

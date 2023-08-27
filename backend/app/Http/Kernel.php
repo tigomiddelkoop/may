@@ -72,6 +72,7 @@ class Kernel extends HttpKernel
 
         'exists.fuel' => \App\Http\Middleware\Checks\FuelExists::class,
         'exists.fuel.type' => \App\Http\Middleware\Checks\FuelTypeExists::class,
+        'exists.fuel.expense' => \App\Http\Middleware\Checks\FuelExpenseExists::class,
 
         'exists.engine.type' => \App\Http\Middleware\Checks\EngineTypeExists::class,
 

@@ -36,20 +36,20 @@ class VehicleController extends Controller
 
         $vehicle->initial_kilometers = $validated['initial_kilometers'];
 
-        if (isset($validated['vin_number']) && $vehicle->vin_number != $validated['vin_number']) {
+        if (isset($validated['vin_number'])) {
             $vehicle->vin_number = $validated['vin_number'];
         }
 
         $vehicle->license_plate = $validated['license_plate'];
         $vehicle->license_plate_country = $validated['license_plate_country'];
 
-        if (isset($validated['note']) && $vehicle->note != $validated['note']) {
+        if (isset($validated['note'])) {
             $vehicle->note = $validated['note'];
         }
 
         $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
         $vehicle->engineType()->associate($validated['engine_type_id']);
-        $vehicle->defaultFuelType()->associate($validated['default_fuel_type_id']);
+        $vehicle->defaultFuel()->associate($validated['default_fuel_id']);
 
         // @TODO Switch to the user model for login
         $vehicle->added_by = 1;
@@ -113,8 +113,8 @@ class VehicleController extends Controller
             $vehicle->engineType()->associate($validated['engine_type_id']);
         }
 
-        if (isset($validated['default_fuel_type_id']) && $vehicle->default_fuel_type_id != $validated['default_fuel_type_id']) {
-            $vehicle->defaultFuelType()->associate($validated['default_fuel_type_id']);
+        if (isset($validated['default_fuel_id']) && $vehicle->default_fuel_id != $validated['default_fuel_id']) {
+            $vehicle->defaultFuel()->associate($validated['default_fuel_id']);
         }
 
         $updated = $vehicle->update();

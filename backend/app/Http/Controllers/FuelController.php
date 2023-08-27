@@ -33,7 +33,7 @@ class FuelController extends Controller
 
         $fuel->name = $validated['name'];
 
-        if (isset($validated['description']) && $fuel->description != $validated['description']) {
+        if (isset($validated['description'])) {
             $fuel->description = $validated['description'];
         }
 

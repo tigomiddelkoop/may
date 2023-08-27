@@ -73,11 +73,13 @@ Route::middleware([])->group(function () {
     Route::prefix('/fuels')->name('fuels.')->group(function () {
         Route::prefix('/expenses')->name('expenses.')->group(function () {
             Route::get('/', [FuelExpenseController::class, 'index'])->name('index');
-
-            Route::get('/{id}', [FuelExpenseController::class, 'show'])->name('show');
             Route::post('/', [FuelExpenseController::class, 'store'])->name('store');
-            Route::patch('/{id}', [FuelExpenseController::class, 'update'])->name('update');
-            Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
+
+            Route::middleware(['exists.fuel.expense'])->group(function () {
+                Route::get('/{id}', [FuelExpenseController::class, 'show'])->name('show');
+                Route::patch('/{id}', [FuelExpenseController::class, 'update'])->name('update');
+                Route::delete('/{id}', [FuelExpenseController::class, 'destroy'])->name('destroy');
+            });
         });
 
         Route::prefix('/types')->name('types.')->group(function () {
