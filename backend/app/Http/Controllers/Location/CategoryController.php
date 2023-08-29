@@ -60,6 +60,7 @@ class CategoryController extends Controller
         $validated = $request->validated();
         $locationCategory = LocationCategory::find($id);
 
+        // name
         if (isset($validated['name']) && $locationCategory->name != $validated['name']) {
             $locationCategory->name = $validated['name'];
         }

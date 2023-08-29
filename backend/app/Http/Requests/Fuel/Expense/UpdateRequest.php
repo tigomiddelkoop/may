@@ -33,7 +33,7 @@ class UpdateRequest extends FormRequest
 
             'filled_up' => 'boolean',
 
-            'note' => 'string'
+            'note' => 'string',
         ];
     }
 }

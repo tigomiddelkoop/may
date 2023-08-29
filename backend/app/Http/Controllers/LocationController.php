@@ -64,14 +64,17 @@ class LocationController extends Controller
         $validated = $request->validated();
         $location = Location::find($id);
 
+        // name
         if (isset($validated['name']) && $location->name != $validated['name']) {
             $location->name = $validated['name'];
         }
 
+        // address
         if (isset($validated['address']) && $location->address != $validated['address']) {
             $location->address = $validated['address'];
         }
 
+        // location_category_id
         if (isset($validated['location_category_id']) && $location->location_category_id != $validated['location_category_id']) {
             $location->locationCategory()->associate($validated['location_category_id']);
         }

@@ -33,7 +33,7 @@ class StoreRequest extends FormRequest
 
             'filled_up' => 'required|boolean',
 
-            'note' => 'string'
+            'note' => 'string',
         ];
     }
 }

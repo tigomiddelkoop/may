@@ -8,8 +8,8 @@ use App\Classes\GetResponse;
 use App\Classes\StoreResponse;
 use App\Classes\UpdateResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Fuel\Expense\UpdateRequest;
 use App\Http\Requests\Fuel\Expense\StoreRequest;
+use App\Http\Requests\Fuel\Expense\UpdateRequest;
 use App\Models\FuelExpense;
 use App\Models\Vehicle;
 
@@ -41,6 +41,7 @@ class ExpenseController extends Controller
 
         $fuelExpense->total_price = $this->calculatePrice(fuelQuantity: $validated['fuel_quantity'], fuelPrice: $validated['fuel_price']);
 
+        // fuel_id
         if (isset($validated['fuel_id'])) {
             $fuelExpense->fuel()->associate($validated['fuel_id']);
         } else {
@@ -49,17 +50,19 @@ class ExpenseController extends Controller
 
         $fuelExpense->vehicle()->associate($validated['vehicle_id']);
 
+        // location_id
         if (isset($validated['location_id'])) {
             $fuelExpense->location()->associate($validated['location_id']);
         }
 
+        // note
         if (isset($validated['note'])) {
             $fuelExpense->note = $validated['note'];
         }
 
         $saved = $fuelExpense->saveOrFail();
 
-        if (!$saved) {
+        if (! $saved) {
             return new ErrorResponse('An error has occurred when storing the fuel expense');
         }
 
@@ -137,7 +140,7 @@ class ExpenseController extends Controller
         }
 
         $updated = $fuelExpense->update();
-        if (!$updated) {
+        if (! $updated) {
             return new ErrorResponse('An error has occurred when updating the fuel expense');
         }
 
@@ -147,20 +150,18 @@ class ExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public
-    function destroy(string $id)
+    public function destroy(string $id)
     {
         $destroyed = FuelExpense::destroy($id);
 
-        if (!$destroyed) {
+        if (! $destroyed) {
             return new ErrorResponse('Something went wrong deleting the fuel type');
         }
 
         return new DestroyResponse();
     }
 
-    private
-    function calculatePrice($fuelQuantity, $fuelPrice): float
+    private function calculatePrice($fuelQuantity, $fuelPrice): float
     {
         $totalPrice = bcmul($fuelQuantity, $fuelPrice, 3);
 

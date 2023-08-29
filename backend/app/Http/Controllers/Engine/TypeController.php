@@ -61,6 +61,7 @@ class TypeController extends Controller
         $validated = $request->validated();
         $engineType = EngineType::find($id);
 
+        // name
         if (isset($validated['name']) && $engineType->name != $validated['name']) {
             $engineType->name = $validated['name'];
         }

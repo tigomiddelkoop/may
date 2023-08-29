@@ -33,6 +33,7 @@ class FuelController extends Controller
 
         $fuel->name = $validated['name'];
 
+        // description
         if (isset($validated['description'])) {
             $fuel->description = $validated['description'];
         }
@@ -66,14 +67,17 @@ class FuelController extends Controller
         $validated = $request->validated();
         $fuel = Fuel::find($id);
 
+        // name
         if (isset($validated['name']) && $fuel->name != $validated['name']) {
             $fuel->name = $validated['name'];
         }
 
+        // description
         if (isset($validated['description']) && $fuel->description != $validated['description']) {
             $fuel->description = $validated['description'];
         }
 
+        // fuel_type_id
         if (isset($validated['fuel_type_id']) && $fuel->fuel_type_id != $validated['fuel_type_id']) {
             $fuel->fuelType()->associate($validated['fuel_type_id']);
         }

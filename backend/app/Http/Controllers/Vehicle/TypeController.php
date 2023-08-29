@@ -60,6 +60,7 @@ class TypeController extends Controller
         $validated = $request->validated();
         $vehicleType = VehicleType::find($id);
 
+        // name
         if (isset($validated['name']) && $vehicleType->name != $validated['name']) {
             $vehicleType->name = $validated['name'];
         }

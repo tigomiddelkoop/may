@@ -36,6 +36,7 @@ class VehicleController extends Controller
 
         $vehicle->initial_kilometers = $validated['initial_kilometers'];
 
+        // vin_number
         if (isset($validated['vin_number'])) {
             $vehicle->vin_number = $validated['vin_number'];
         }
@@ -43,6 +44,7 @@ class VehicleController extends Controller
         $vehicle->license_plate = $validated['license_plate'];
         $vehicle->license_plate_country = $validated['license_plate_country'];
 
+        // note
         if (isset($validated['note'])) {
             $vehicle->note = $validated['note'];
         }
@@ -81,38 +83,47 @@ class VehicleController extends Controller
         $validated = $request->validated();
         $vehicle = Vehicle::find($id);
 
+        // model
         if (isset($validated['model']) && $vehicle->model != $validated['model']) {
             $vehicle->model = $validated['model'];
         }
 
+        // license_plate
         if (isset($validated['license_plate']) && $vehicle->license_plate != $validated['license_plate']) {
             $vehicle->license_plate = $validated['license_plate'];
         }
 
+        // license_plate_country
         if (isset($validated['license_plate_country']) && $vehicle->license_plate_country != $validated['license_plate_country']) {
             $vehicle->license_plate_country = $validated['license_plate_country'];
         }
 
+        // vin_number
         if (isset($validated['vin_number']) && $vehicle->vin_number != $validated['vin_number']) {
             $vehicle->vin_number = $validated['vin_number'];
         }
 
+        // initial_kilometers
         if (isset($validated['initial_kilometers']) && $vehicle->initial_kilometers != $validated['initial_kilometers']) {
             $vehicle->initial_kilometers = $validated['initial_kilometers'];
         }
 
+        // note
         if (isset($validated['note']) && $vehicle->note != $validated['note']) {
             $vehicle->note = $validated['note'];
         }
 
+        // vehicle_type_id
         if (isset($validated['vehicle_type_id']) && $vehicle->vehicle_type_id != $validated['vehicle_type_id']) {
             $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
         }
 
+        // engine_type_id
         if (isset($validated['engine_type_id']) && $vehicle->engine_type_id != $validated['engine_type_id']) {
             $vehicle->engineType()->associate($validated['engine_type_id']);
         }
 
+        // default_fuel_id
         if (isset($validated['default_fuel_id']) && $vehicle->default_fuel_id != $validated['default_fuel_id']) {
             $vehicle->defaultFuel()->associate($validated['default_fuel_id']);
         }

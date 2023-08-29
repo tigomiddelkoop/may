@@ -61,6 +61,7 @@ class CategoryController extends Controller
         $validated = $request->validated();
         $engineType = ActivityCategory::find($id);
 
+        // name
         if (isset($validated['name']) && $engineType->name != $validated['name']) {
             $engineType->name = $validated['name'];
         }
