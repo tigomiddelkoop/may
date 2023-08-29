@@ -2,7 +2,7 @@
     "name": "tigomiddelkoop/may",
     "type": "project",
     "description": "A third generation vehicle tracking tool",
-    "keywords": ["laravel", "framework"],
+    "keywords": ["may"],
     "license": "MIT",
     "require": {
         "php": "^8.1",

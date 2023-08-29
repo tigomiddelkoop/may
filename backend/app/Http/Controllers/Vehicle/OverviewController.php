@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Vehicle;
 
+use App\Classes\GetResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class OverviewController extends Controller
@@ -16,34 +18,17 @@ class OverviewController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $license_plate)
     {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $vehicle = Vehicle::where('license_plate', $license_plate)->first();
+        $fuelExpenses = $vehicle->fuelExpenses;
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Do the price calculations using the database native plus minus functionality, for the activity expenses do the same but do it per category as well.
+
+        return new GetResponse($fuelExpenses);
+
     }
 }
