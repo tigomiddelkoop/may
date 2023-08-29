@@ -22,7 +22,18 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'fuel_id' => 'numeric|exists:App\Models\Fuel,id',
+            'vehicle_id' => 'numeric|exists:App\Models\Vehicle,id',
+            'location_id' => 'numeric|exists:App\Models\Location,id',
+
+            'fuel_quantity' => 'numeric',
+            'fuel_price' => 'numeric',
+
+            'odo_reading' => 'numeric',
+
+            'filled_up' => 'boolean',
+
+            'note' => 'string'
         ];
     }
 }

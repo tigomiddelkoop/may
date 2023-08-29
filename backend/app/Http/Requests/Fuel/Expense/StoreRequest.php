@@ -32,6 +32,8 @@ class StoreRequest extends FormRequest
             'odo_reading' => 'required|numeric',
 
             'filled_up' => 'required|boolean',
+
+            'note' => 'string'
         ];
     }
 }
