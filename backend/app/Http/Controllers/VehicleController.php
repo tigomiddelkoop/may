@@ -68,9 +68,9 @@ class VehicleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $license_plate)
     {
-        $vehicle = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->find($id);
+        $vehicle = Vehicle::with(['engineType', 'vehicleType', 'defaultFuel'])->where('license_plate', $license_plate)->first();
 
         return new GetResponse($vehicle);
     }
@@ -78,10 +78,10 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, string $license_plate)
     {
         $validated = $request->validated();
-        $vehicle = Vehicle::find($id);
+        $vehicle = Vehicle::where('license_plate', $license_plate)->first();
 
         // model
         if (isset($validated['model']) && $vehicle->model != $validated['model']) {
@@ -133,15 +133,16 @@ class VehicleController extends Controller
             return new ErrorResponse('An error has occurred when updating the vehicle');
         }
 
-        return new UpdateResponse(Vehicle::find($id));
+        return new UpdateResponse($vehicle->refresh());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $license_plate)
     {
-        $destroyed = Vehicle::destroy($id);
+        $vehicle = Vehicle::where('license_plate', $license_plate)->first();
+        $destroyed = $vehicle->delete();
 
         if (! $destroyed) {
             return new ErrorResponse('Something went wrong deleting the vehicle');

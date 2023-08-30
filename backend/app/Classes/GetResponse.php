@@ -9,8 +9,8 @@ class GetResponse extends BaseResponse
 {
     public function __construct(
         public readonly mixed $data,
-        public readonly int $status = Response::HTTP_OK,
-        public readonly string $message = 'Data has been retrieved'
+        public readonly string $message = 'Data has been retrieved',
+        public readonly int $status = Response::HTTP_OK
     ) {
     }
 }

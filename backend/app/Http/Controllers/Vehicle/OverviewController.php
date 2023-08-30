@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Vehicle;
 use App\Classes\GetResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 
 class OverviewController extends Controller
 {
@@ -28,7 +27,7 @@ class OverviewController extends Controller
 
         // Do the price calculations using the database native plus minus functionality, for the activity expenses do the same but do it per category as well.
 
-        return new GetResponse($fuelExpenses);
+        return new GetResponse($vehicle);
 
     }
 }

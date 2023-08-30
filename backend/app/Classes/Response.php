@@ -10,8 +10,8 @@ class Response implements Responsable
 {
     public function __construct(
         public readonly mixed $data,
-        public readonly int $status = SymfonyResponse::HTTP_OK,
         public readonly string $message = '',
+        public readonly int $status = SymfonyResponse::HTTP_OK,
     ) {
     }
 

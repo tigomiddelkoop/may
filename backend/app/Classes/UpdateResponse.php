@@ -9,8 +9,8 @@ class UpdateResponse extends BaseResponse
 {
     public function __construct(
         public readonly mixed $data,
-        public readonly int $status = Response::HTTP_OK,
-        public readonly string $message = 'Data has been updated'
+        public readonly string $message = 'Data has been updated',
+        public readonly int $status = Response::HTTP_OK
     ) {
     }
 }

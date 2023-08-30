@@ -17,12 +17,12 @@ class VehicleExists
      */
     public function handle(Request $request, Closure $next): Response|NotFoundResponse
     {
-        if (! is_numeric($request->id)) {
-            return new NotFoundResponse('Specified ID is not a number');
-        }
+        //        if (! is_numeric($request->id)) {
+        //            return new NotFoundResponse('Specified ID is not a number');
+        //        }
 
-        if (! Vehicle::where('id', $request->id)->exists()) {
-            return new NotFoundResponse();
+        if (! Vehicle::where('license_plate', $request->license_plate)->exists()) {
+            return new NotFoundResponse([], 'The vehicle does not exist');
         }
 
         return $next($request);

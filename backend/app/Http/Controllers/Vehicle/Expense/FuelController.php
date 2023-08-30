@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Fuel;
+namespace App\Http\Controllers\Vehicle\Expense;
 
 use App\Classes\DestroyResponse;
 use App\Classes\ErrorResponse;
@@ -12,15 +12,16 @@ use App\Http\Requests\Fuel\Expense\StoreRequest;
 use App\Http\Requests\Fuel\Expense\UpdateRequest;
 use App\Models\FuelExpense;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 
-class ExpenseController extends Controller
+class FuelController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $license_plate)
     {
-        $fuelExpenses = FuelExpense::orderBy('id')->get();
+        $fuelExpenses = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderBy('time')->get();
 
         return new GetResponse($fuelExpenses);
     }
@@ -28,16 +29,19 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, string $license_plate)
     {
+
         $validated = $request->validated();
         $fuelExpense = new FuelExpense();
-        $vehicle = Vehicle::find($validated['vehicle_id']);
+        $vehicle = Vehicle::where('license_plate', $license_plate)->first();
 
         $fuelExpense->fuel_quantity = $validated['fuel_quantity'];
         $fuelExpense->fuel_price = $validated['fuel_price'];
         $fuelExpense->odo_reading = $validated['odo_reading'];
         $fuelExpense->filled_up = $validated['filled_up'];
+
+        $fuelExpense->expense_time = Carbon::parse($validated['expense_time']);
 
         $fuelExpense->total_price = $this->calculatePrice(fuelQuantity: $validated['fuel_quantity'], fuelPrice: $validated['fuel_price']);
 
@@ -48,7 +52,7 @@ class ExpenseController extends Controller
             $fuelExpense->fuel()->associate($vehicle->default_fuel_id);
         }
 
-        $fuelExpense->vehicle()->associate($validated['vehicle_id']);
+        $fuelExpense->vehicle()->associate($vehicle->id);
 
         // location_id
         if (isset($validated['location_id'])) {
@@ -72,9 +76,9 @@ class ExpenseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $license_plate, string $id)
     {
-        $fuelExpense = FuelExpense::with(['fuel', 'vehicle', 'location'])->find($id);
+        $fuelExpense = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->with(['fuel', 'vehicle', 'location'])->find($id);
 
         return new GetResponse($fuelExpense);
     }
@@ -82,11 +86,10 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, string $license_plate, string $id)
     {
         $validated = $request->validated();
-        $fuelExpense = FuelExpense::find($id);
-        $vehicle = Vehicle::find($validated['vehicle_id']);
+        $fuelExpense = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->with(['fuel', 'vehicle', 'location'])->find($id);
 
         $recalculatePrice = false;
 
@@ -121,12 +124,7 @@ class ExpenseController extends Controller
         if (isset($validated['fuel_id']) && $fuelExpense->fuel_id != $validated['fuel_id']) {
             $fuelExpense->fuel()->associate($validated['fuel_id']);
         } else {
-            $fuelExpense->fuel()->associate($vehicle->default_fuel_id);
-        }
-
-        // vehicle_id
-        if (isset($validated['vehicle_id']) && $fuelExpense->vehicle_id != $validated['vehicle_id']) {
-            $fuelExpense->vehicle()->associate($validated['vehicle_id']);
+            $fuelExpense->fuel()->associate($fuelExpense->vehicle->default_fuel_id);
         }
 
         // location_id
@@ -136,7 +134,14 @@ class ExpenseController extends Controller
 
         // note
         if (isset($validated['note']) && $fuelExpense->note != $validated['note']) {
-            $fuelExpense = $validated['note'];
+            $fuelExpense->note = $validated['note'];
+        }
+
+        // expense_time
+        $expense_time_old = Carbon::parse($fuelExpense->expense_time);
+        $expense_time_new = Carbon::parse($validated['expense_time']);
+        if (isset($validated['expense_time']) && $expense_time_old->ne($expense_time_new)) {
+            $fuelExpense->expense_time = $expense_time_new;
         }
 
         $updated = $fuelExpense->update();
@@ -144,15 +149,16 @@ class ExpenseController extends Controller
             return new ErrorResponse('An error has occurred when updating the fuel expense');
         }
 
-        return new UpdateResponse(FuelExpense::find($id));
+        return new UpdateResponse($fuelExpense->refresh());
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $license_plate, string $id)
     {
-        $destroyed = FuelExpense::destroy($id);
+        $fuelExpense = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->find($id);
+        $destroyed = $fuelExpense->delete();
 
         if (! $destroyed) {
             return new ErrorResponse('Something went wrong deleting the fuel type');
@@ -164,7 +170,6 @@ class ExpenseController extends Controller
     private function calculatePrice($fuelQuantity, $fuelPrice): float
     {
         $totalPrice = bcmul($fuelQuantity, $fuelPrice, 3);
-
         return round($totalPrice, 2);
     }
 }

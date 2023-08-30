@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Route;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -43,6 +44,7 @@ class RouteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $destroyed = Route::destroy($id);
+
     }
 }

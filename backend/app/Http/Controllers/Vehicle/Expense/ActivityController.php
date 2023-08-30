@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Activity;
+namespace App\Http\Controllers\Vehicle\Expense;
 
 use App\Classes\DestroyResponse;
 use App\Classes\ErrorResponse;
@@ -9,14 +9,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ActivityExpense;
 use Illuminate\Http\Request;
 
-class ExpenseController extends Controller
+class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string, $license_plate)
     {
-        $activityExpenses = ActivityExpense::orderBy('id')->get();
+        $activityExpenses = ActivityExpense::::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderBy('time')->get();
 
         return new GetResponse($activityExpenses);
     }
@@ -54,7 +54,7 @@ class ExpenseController extends Controller
     {
         $destroyed = ActivityExpense::destroy($id);
 
-        if (! $destroyed) {
+        if (!$destroyed) {
             return new ErrorResponse('Something went wrong deleting the activity expense');
         }
 

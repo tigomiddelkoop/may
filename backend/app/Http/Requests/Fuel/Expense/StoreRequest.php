@@ -23,11 +23,12 @@ class StoreRequest extends FormRequest
     {
         return [
             'fuel_id' => 'numeric|exists:App\Models\Fuel,id',
-            'vehicle_id' => 'required|numeric|exists:App\Models\Vehicle,id',
             'location_id' => 'numeric|exists:App\Models\Location,id',
 
             'fuel_quantity' => 'required|numeric',
             'fuel_price' => 'required|numeric',
+
+            'expense_time' => 'required|date',
 
             'odo_reading' => 'required|numeric',
 
