@@ -7,6 +7,7 @@ use App\Classes\ErrorResponse;
 use App\Classes\GetResponse;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityExpense;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -26,7 +27,9 @@ class ActivityController extends Controller
      */
     public function store(Request $request, string $license_plate)
     {
-        //
+        $validated = $request->validated();
+        $activityExpense = new ActivityExpense();
+        $vehicle = Vehicle::where('license_plate', $license_plate)->first();
     }
 
     /**
@@ -35,6 +38,7 @@ class ActivityController extends Controller
     public function show(string $license_plate, string $id)
     {
         $activityExpense = ActivityExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->with(['vehicle', 'location'])->find($id);
+
         return new GetResponse($activityExpense);
     }
 

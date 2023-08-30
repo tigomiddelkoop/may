@@ -21,7 +21,7 @@ class FuelController extends Controller
      */
     public function index(string $license_plate)
     {
-        $fuelExpenses = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderByDesc('expense_time',)->get();
+        $fuelExpenses = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderByDesc('expense_time')->get();
 
         return new GetResponse($fuelExpenses);
     }
@@ -31,7 +31,6 @@ class FuelController extends Controller
      */
     public function store(StoreRequest $request, string $license_plate)
     {
-
         $validated = $request->validated();
         $fuelExpense = new FuelExpense();
         $vehicle = Vehicle::where('license_plate', $license_plate)->first();
@@ -170,6 +169,7 @@ class FuelController extends Controller
     private function calculatePrice($fuelQuantity, $fuelPrice): float
     {
         $totalPrice = bcmul($fuelQuantity, $fuelPrice, 3);
+
         return round($totalPrice, 2);
     }
 }
