@@ -21,7 +21,7 @@ class FuelController extends Controller
      */
     public function index(string $license_plate)
     {
-        $fuelExpenses = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderBy('time')->get();
+        $fuelExpenses = FuelExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderByDesc('expense_time',)->get();
 
         return new GetResponse($fuelExpenses);
     }

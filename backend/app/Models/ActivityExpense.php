@@ -15,4 +15,14 @@ class ActivityExpense extends Model
     {
         return $this->belongsTo(ActivityCategory::class);
     }
+
+    public function vehicle(): BelongsTo
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

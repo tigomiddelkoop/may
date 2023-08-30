@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -69,10 +69,11 @@ class Kernel extends HttpKernel
 
         'exists.vehicle' => \App\Http\Middleware\Checks\VehicleExists::class,
         'exists.vehicle.type' => \App\Http\Middleware\Checks\VehicleTypeExists::class,
+        'exists.vehicle.expense.fuel' => \App\Http\Middleware\Checks\FuelExpenseExists::class,
+        'exists.vehicle.expense.activity' => \App\Http\Middleware\Checks\ActivityExpenseExists::class,
 
         'exists.fuel' => \App\Http\Middleware\Checks\FuelExists::class,
         'exists.fuel.type' => \App\Http\Middleware\Checks\FuelTypeExists::class,
-        'exists.fuel.expense' => \App\Http\Middleware\Checks\FuelExpenseExists::class,
 
         'exists.engine.type' => \App\Http\Middleware\Checks\EngineTypeExists::class,
 
@@ -80,6 +81,5 @@ class Kernel extends HttpKernel
         'exists.location.category' => \App\Http\Middleware\Checks\LocationCategoryExists::class,
 
         'exists.activity.category' => \App\Http\Middleware\Checks\ActivityCategoryExists::class,
-        'exists.activity.expenses' => \App\Http\Middleware\Checks\ActivityExpenseExists::class,
     ];
 }

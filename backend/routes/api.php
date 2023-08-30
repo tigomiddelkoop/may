@@ -53,7 +53,7 @@ Route::middleware([])->group(function () {
                     Route::get('/', [VehicleExpenseFuelController::class, 'index'])->name('index');
                     Route::post('/', [VehicleExpenseFuelController::class, 'store'])->name('store');
 
-                    Route::middleware(['exists.fuel.expense'])->group(function () {
+                    Route::middleware(['exists.vehicle.expense.fuel'])->group(function () {
                         Route::get('/{id}', [VehicleExpenseFuelController::class, 'show'])->name('show');
                         Route::patch('/{id}', [VehicleExpenseFuelController::class, 'update'])->name('update');
                         Route::delete('/{id}', [VehicleExpenseFuelController::class, 'destroy'])->name('destroy');
@@ -64,7 +64,7 @@ Route::middleware([])->group(function () {
                     Route::get('/', [VehicleExpenseActivityController::class, 'index'])->name('index');
                     Route::post('/', [VehicleExpenseActivityController::class, 'store'])->name('store');
 
-                    Route::middleware(['exists.activity.expense'])->group(function () {
+                    Route::middleware(['exists.vehicle.expense.activity'])->group(function () {
                         Route::get('/{id}', [VehicleExpenseActivityController::class, 'show'])->name('show');
                         Route::patch('/{id}', [VehicleExpenseActivityController::class, 'update'])->name('update');
                         Route::delete('/{id}', [VehicleExpenseActivityController::class, 'destroy'])->name('destroy');

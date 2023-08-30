@@ -14,9 +14,9 @@ class ActivityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(string, $license_plate)
+    public function index(string $license_plate)
     {
-        $activityExpenses = ActivityExpense::::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderBy('time')->get();
+        $activityExpenses = ActivityExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->orderByDesc('expense_time')->get();
 
         return new GetResponse($activityExpenses);
     }
@@ -24,7 +24,7 @@ class ActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $license_plate)
     {
         //
     }
@@ -32,10 +32,9 @@ class ActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $license_plate, string $id)
     {
-        $activityExpense = ActivityExpense::find($id);
-
+        $activityExpense = ActivityExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->with(['vehicle', 'location'])->find($id);
         return new GetResponse($activityExpense);
     }
 
@@ -50,11 +49,12 @@ class ActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $license_plate, string $id)
     {
-        $destroyed = ActivityExpense::destroy($id);
+        $activityExpense = ActivityExpense::whereRelation('vehicle', 'license_plate', '=', $license_plate)->find($id);
+        $destroyed = $activityExpense->delete();
 
-        if (!$destroyed) {
+        if (! $destroyed) {
             return new ErrorResponse('Something went wrong deleting the activity expense');
         }
 
