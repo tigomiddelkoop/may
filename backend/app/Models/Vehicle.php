@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Vehicle extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, UuidPrimaryKey;
 
     public function defaultFuel(): BelongsTo
     {

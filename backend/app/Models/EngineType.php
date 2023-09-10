@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class EngineType extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidPrimaryKey;
 
     public function vehicles(): HasMany
     {

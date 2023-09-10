@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware\Checks;
 
+use App\Classes\ClientErrorResponse;
 use App\Classes\NotFoundResponse;
 use App\Models\Location;
 use Closure;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class LocationExists
@@ -15,10 +17,10 @@ class LocationExists
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response|NotFoundResponse
+    public function handle(Request $request, Closure $next): Response|NotFoundResponse|ClientErrorResponse
     {
-        if (! is_numeric($request->id)) {
-            return new NotFoundResponse('Specified ID is not a number');
+        if (! Uuid::isValid($request->id)) {
+            return new ClientErrorResponse(message: 'Specified id is not valid a valid uuid');
         }
 
         if (! Location::where('id', $request->id)->exists()) {

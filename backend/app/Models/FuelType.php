@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class FuelType extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidPrimaryKey;
 
     protected $fillable = ['name'];
+
+    //    protected $casts = [
+    //        'id' => 'string',
+    //    ];
 
     public function fuels(): hasMany
     {

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class LocationCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidPrimaryKey;
 }

@@ -27,7 +27,7 @@ return new class extends Migration
         Schema::dropColumns('vehicles', ['fuel_category_id', 'default_fuel_id']);
 
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->foreignId('fuel_id')->nullable();
+            $table->foreignUuid('fuel_id')->nullable();
         });
     }
 };

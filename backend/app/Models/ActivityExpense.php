@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ActivityExpense extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, UuidPrimaryKey;
 
     public function activityCategory(): BelongsTo
     {

@@ -18,7 +18,7 @@ class FuelController extends Controller
      */
     public function index()
     {
-        $fuels = Fuel::orderBy('id')->get();
+        $fuels = Fuel::orderBy('created_at')->get();
 
         return new GetResponse($fuels);
     }

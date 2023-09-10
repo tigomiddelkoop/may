@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fuel extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, UuidPrimaryKey;
 
     public function locations(): BelongsToMany
     {

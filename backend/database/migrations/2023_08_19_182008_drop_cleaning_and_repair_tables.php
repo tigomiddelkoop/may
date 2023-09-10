@@ -37,7 +37,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::create('repair_categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->string('name');
 
@@ -45,7 +45,7 @@ return new class extends Migration
         });
 
         Schema::create('cleaning_categories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->string('name');
 
@@ -53,7 +53,7 @@ return new class extends Migration
         });
 
         Schema::create('cleaning_expenses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->foreignId('vehicle_id')->index()->constrained('vehicles');
             $table->foreignId('cleaning_category_id')->index()->constrained('cleaning_categories');
@@ -68,7 +68,7 @@ return new class extends Migration
         });
 
         Schema::create('repair_expenses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->foreignId('vehicle_id')->index()->constrained('vehicles');
             $table->foreignId('repair_category_id')->index()->constrained('repair_categories');

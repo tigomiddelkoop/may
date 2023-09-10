@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->bigInteger('default_fuel_id')->constrained('fuels')->nullable()->after('fuel_category_id');
+            $table->uuid('default_fuel_id')->constrained('fuels')->nullable()->after('fuel_category_id');
         });
     }
 };

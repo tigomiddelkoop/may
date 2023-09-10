@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vehicles', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             $table->string('license_plate');
             $table->string('license_plate_country')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('vin_number')->nullable();
 
-            $table->foreignId('fuel_id')->nullable();
+            $table->foreignUuid('fuel_id')->nullable();
 
             $table->enum('vehicle_type', ['CAR', 'TRUCK', 'MOTOR'])->default('CAR');
             $table->enum('engine_type', ['ELECTRIC', 'COMBUSTION'])->default('COMBUSTION');

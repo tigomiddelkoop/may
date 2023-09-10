@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('fuel_expenses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('fuel_id')->constrained('fuels');
-            $table->foreignId('vehicle_id')->constrained('vehicles');
-            $table->foreignId('location_id')->constrained('locations')->nullable();
+            $table->foreignUuid('fuel_id')->constrained('fuels');
+            $table->foreignUuid('vehicle_id')->constrained('vehicles');
+            $table->foreignUuid('location_id')->constrained('locations')->nullable();
 
             $table->decimal('amount');
             $table->decimal('price');

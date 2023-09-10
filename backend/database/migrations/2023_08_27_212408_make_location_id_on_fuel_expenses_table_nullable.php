@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('fuel_expenses', function (Blueprint $table) {
-            $table->bigInteger('location_id')->nullable(true)->change();
+            $table->uuid('location_id')->nullable(true)->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('fuel_expenses', function (Blueprint $table) {
-            $table->bigInteger('location_id')->nullable(false)->change();
+            $table->uuid('location_id')->nullable(false)->change();
         });
     }
 };

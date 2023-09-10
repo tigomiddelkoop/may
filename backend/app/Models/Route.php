@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Route extends Model
 {
-    use HasFactory,
-        SoftDeletes;
+    use HasFactory, SoftDeletes, UuidPrimaryKey;
 
     public function vehicle(): BelongsTo
     {

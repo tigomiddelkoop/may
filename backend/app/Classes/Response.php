@@ -29,4 +29,18 @@ class Response implements Responsable
             status: $this->status
         );
     }
+
+    public function toArray(): array
+    {
+        return [
+            'data' => [
+                'message' => $this->message,
+                //                'code' => 'MAY-2000',
+                'data' => $this->data,
+            ],
+            'status' => $this->status,
+        ];
+    }
+
+    //    public function fromArray
 }

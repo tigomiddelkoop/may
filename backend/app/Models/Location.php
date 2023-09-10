@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
-    use HasFactory;
+    use HasFactory, UuidPrimaryKey;
 
     public function fuelExpenses(): HasMany
     {

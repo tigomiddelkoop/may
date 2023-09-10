@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('repair_expenses', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('vehicle_id')->index()->constrained('vehicles');
-            $table->foreignId('repair_category_id')->index()->constrained('repair_categories');
-            $table->foreignId('location_id')->constrained('locations')->nullable();
+            $table->foreignUuid('vehicle_id')->index()->constrained('vehicles');
+            $table->foreignUUid('repair_category_id')->index()->constrained('repair_categories');
+            $table->foreignUuid('location_id')->constrained('locations')->nullable();
 
             $table->decimal('price');
             $table->bigInteger('odometer');
