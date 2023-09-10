@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Fuels;
 
+use App\Models\Fuel;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -19,17 +20,19 @@ class DestroyFuelTest extends TestCase
     }
 
     /** @test */
-    public function fuel_should_be_destroyed(): void
+    public function it_should_delete_a_fuel(): void
     {
         $response = $this->delete('/fuels/1a9157a7-ae5f-4cf9-9883-c9d26c082cba');
 
         $response
             ->assertStatus(200)
             ->assertJson([]);
+
+        $this->assertSoftDeleted(Fuel::class, ['id' => '1a9157a7-ae5f-4cf9-9883-c9d26c082cba']);
     }
 
     /** @test */
-    public function non_existing_fuel_should_return_404(): void
+    public function it_should_return_a_404_when_trying_to_delete_a_fuel_that_does_not_exist(): void
     {
         $response = $this->delete('/fuels/40c6fb39-5e15-44c0-b27d-1fcc8353a062');
 
@@ -37,7 +40,7 @@ class DestroyFuelTest extends TestCase
     }
 
     /** @test */
-    public function it_should_400_when_giving_incorrect_id(): void
+    public function it_should_return_a_400_when_giving_incorrect_id(): void
     {
         $response = $this->delete('/fuels/12');
 

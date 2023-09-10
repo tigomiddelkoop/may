@@ -30,6 +30,9 @@ Route::any('/', function () {
     return new \App\Classes\Response(
         data: [
             'version' => '0.0.1',
+            'instance_info' => [
+                'vehicles' => \App\Models\Vehicle::count(),
+            ],
         ],
         message: 'Welcome to May, a third generation Vehicle Tracking Tool',
     );

@@ -19,7 +19,7 @@ class ListFuelsTest extends TestCase
     }
 
     /** @test */
-    public function fuel_endpoint_should_return_all_available_fuels(): void
+    public function it_should_return_all_available_fuels(): void
     {
         $response = $this->get('/fuels');
 
