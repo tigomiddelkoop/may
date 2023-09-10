@@ -30,9 +30,9 @@ class StoreRequest extends FormRequest
 
             'initial_kilometers' => 'numeric',
 
-            'vehicle_type_id' => 'required|numeric|exists:\App\Models\VehicleType,id',
-            'engine_type_id' => 'required|numeric|exists:\App\Models\EngineType,id',
-            'default_fuel_id' => 'required|numeric|exists:\App\Models\Fuel,id',
+            'vehicle_type_id' => 'required|uuid|exists:\App\Models\VehicleType,id',
+            'engine_type_id' => 'required|uuid|exists:\App\Models\EngineType,id',
+            'default_fuel_id' => 'required|uuid|exists:\App\Models\Fuel,id',
 
             'note' => 'string',
         ];

@@ -10,6 +10,8 @@ class VehicleType extends Model
 {
     use HasFactory, UuidPrimaryKey;
 
+    protected $hidden = ['deleted_at'];
+
     protected $fillable = ['name'];
 
     public function vehicles(): HasMany

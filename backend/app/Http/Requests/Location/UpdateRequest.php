@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'string',
             'address' => 'string',
-            'location_category_id' => 'numeric|exists:App\Models\LocationCategory,id',
+            'location_category_id' => 'uuid|exists:App\Models\LocationCategory,id',
         ];
     }
 }

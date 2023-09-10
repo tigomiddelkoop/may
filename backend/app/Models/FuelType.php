@@ -10,11 +10,9 @@ class FuelType extends Model
 {
     use HasFactory, UuidPrimaryKey;
 
-    protected $fillable = ['name'];
+    protected $hidden = ['deleted_at'];
 
-    //    protected $casts = [
-    //        'id' => 'string',
-    //    ];
+    protected $fillable = ['name'];
 
     public function fuels(): hasMany
     {

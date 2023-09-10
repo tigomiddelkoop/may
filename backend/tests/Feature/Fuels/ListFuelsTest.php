@@ -35,7 +35,6 @@ class ListFuelsTest extends TestCase
                         'description' => 'This petrol contains 5% ethanol',
                         'created_at' => '2023-01-01T00:00:00.000000Z',
                         'updated_at' => '2023-01-01T00:00:00.000000Z',
-                        'deleted_at' => null,
                     ],
                     [
                         'id' => '9e3b4a6d-ec48-46a4-9a52-f5df3e9bc640',
@@ -44,7 +43,6 @@ class ListFuelsTest extends TestCase
                         'description' => 'This petrol contains 10% ethanol',
                         'created_at' => '2023-01-01T00:00:00.000000Z',
                         'updated_at' => '2023-01-01T00:00:00.000000Z',
-                        'deleted_at' => null,
                     ],
                     [
                         'id' => '706b6ced-713f-4419-b2c7-359ba4aa5561',
@@ -53,7 +51,6 @@ class ListFuelsTest extends TestCase
                         'description' => 'This petrol contains 85% ethanol',
                         'created_at' => '2023-01-01T00:00:00.000000Z',
                         'updated_at' => '2023-01-01T00:00:00.000000Z',
-                        'deleted_at' => null,
                     ],
                 ],
             ]);

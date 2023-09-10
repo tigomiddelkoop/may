@@ -26,7 +26,10 @@ class DestroyFuelTest extends TestCase
 
         $response
             ->assertStatus(200)
-            ->assertJson([]);
+            ->assertExactJson([
+                "message" => "Data has been destroyed",
+                "data" => []
+            ]);
 
         $this->assertSoftDeleted(Fuel::class, ['id' => '1a9157a7-ae5f-4cf9-9883-c9d26c082cba']);
     }
@@ -42,7 +45,7 @@ class DestroyFuelTest extends TestCase
     /** @test */
     public function it_should_return_a_400_when_giving_incorrect_id(): void
     {
-        $response = $this->delete('/fuels/12');
+        $response = $this->delete('/fuels/INVALID-UUID');
 
         $response
             ->assertStatus(400)

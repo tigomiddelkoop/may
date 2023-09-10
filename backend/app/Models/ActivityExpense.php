@@ -11,6 +11,9 @@ class ActivityExpense extends Model
 {
     use HasFactory, SoftDeletes, UuidPrimaryKey;
 
+    protected $hidden = ['deleted_at'];
+
+
     public function activityCategory(): BelongsTo
     {
         return $this->belongsTo(ActivityCategory::class);

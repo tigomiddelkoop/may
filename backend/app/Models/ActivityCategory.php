@@ -11,6 +11,9 @@ class ActivityCategory extends Model
 {
     use HasFactory, UuidPrimaryKey;
 
+    protected $hidden = ['deleted_at'];
+
+
     public function activityExpenses(): HasMany
     {
         return $this->hasMany(ActivityExpense::class);

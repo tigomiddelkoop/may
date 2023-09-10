@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'string',
             'description' => 'string',
-            'fuel_type_id' => 'numeric|exists:\App\Models\FuelType,id',
+            'fuel_type_id' => 'uuid|exists:\App\Models\FuelType,id',
         ];
     }
 }

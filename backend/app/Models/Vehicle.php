@@ -12,6 +12,9 @@ class Vehicle extends Model
 {
     use HasFactory, SoftDeletes, UuidPrimaryKey;
 
+    protected $hidden = ['deleted_at'];
+
+
     public function defaultFuel(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);

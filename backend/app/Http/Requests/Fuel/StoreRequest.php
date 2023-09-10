@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'string',
-            'fuel_type_id' => 'required|numeric|exists:\App\Models\FuelType,id',
+            'fuel_type_id' => 'required|uuid|exists:\App\Models\FuelType,id',
         ];
     }
 }

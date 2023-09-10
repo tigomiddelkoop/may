@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'address' => 'required|string',
-            'location_category_id' => 'required|numeric|exists:App\Models\LocationCategory,id',
+            'location_category_id' => 'required|uuid|exists:App\Models\LocationCategory,id',
         ];
     }
 }
