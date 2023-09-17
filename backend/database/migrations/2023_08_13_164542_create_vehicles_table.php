@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->string('vin_number')->nullable();
 
-            $table->foreignUuid('fuel_id')->nullable();
+            $table->uuid('fuel_id')->nullable();
 
             $table->enum('vehicle_type', ['CAR', 'TRUCK', 'MOTOR'])->default('CAR');
             $table->enum('engine_type', ['ELECTRIC', 'COMBUSTION'])->default('COMBUSTION');

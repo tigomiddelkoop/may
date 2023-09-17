@@ -12,18 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('cleaning_expenses', function (Blueprint $table) {
-            $table->dropForeign(['vehicle_id']);
-            $table->dropForeign(['cleaning_category_id']);
-            $table->dropForeign(['location_id']);
-
             $table->dropIfExists();
         });
 
         Schema::table('repair_expenses', function (Blueprint $table) {
-            $table->dropForeign(['vehicle_id']);
-            $table->dropForeign(['repair_category_id']);
-            $table->dropForeign(['location_id']);
-
             $table->dropIfExists();
         });
 
@@ -55,9 +47,9 @@ return new class extends Migration
         Schema::create('cleaning_expenses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('vehicle_id')->index()->constrained('vehicles');
-            $table->foreignId('cleaning_category_id')->index()->constrained('cleaning_categories');
-            $table->foreignId('location_id')->constrained('locations')->nullable();
+            $table->bigInteger('vehicle_id')->index()->constrained('vehicles');
+            $table->bigInteger('cleaning_category_id')->index()->constrained('cleaning_categories');
+            $table->bigInteger('location_id')->constrained('locations')->nullable();
 
             $table->decimal('price');
             $table->bigInteger('odometer');
@@ -70,9 +62,9 @@ return new class extends Migration
         Schema::create('repair_expenses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('vehicle_id')->index()->constrained('vehicles');
-            $table->foreignId('repair_category_id')->index()->constrained('repair_categories');
-            $table->foreignId('location_id')->constrained('locations')->nullable();
+            $table->bigInteger('vehicle_id')->index()->constrained('vehicles');
+            $table->bigInteger('repair_category_id')->index()->constrained('repair_categories');
+            $table->bigInteger('location_id')->constrained('locations')->nullable();
 
             $table->decimal('price');
             $table->bigInteger('odometer');

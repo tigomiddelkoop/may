@@ -15,6 +15,12 @@ class Fuel extends Model
 
     protected $hidden = ['deleted_at'];
 
+    protected $fillable = [
+        'name',
+        'description',
+        'fuel_type_id',
+    ];
+
     public function locations(): BelongsToMany
     {
         return $this->belongsToMany(Location::class);

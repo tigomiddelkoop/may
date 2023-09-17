@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('activity_expenses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('vehicle_id')->index()->constrained('vehicles')->onDelete('cascade');
-            $table->foreignUuid('activity_category_id')->index()->constrained('activity_categories')->onDelete('cascade');
-            $table->foreignUuid('location_id')->constrained('locations')->nullable()->onDelete('cascade');
+            $table->uuid('vehicle_id')->index()->constrained('vehicles')->onDelete('cascade');
+            $table->uuid('activity_category_id')->index()->constrained('activity_categories')->onDelete('cascade');
+            $table->uuid('location_id')->constrained('locations')->nullable()->onDelete('cascade');
 
             $table->decimal('price');
             $table->bigInteger('odometer')->nullable();

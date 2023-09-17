@@ -67,19 +67,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'exists.vehicle' => \App\Http\Middleware\Checks\VehicleExists::class,
-        'exists.vehicle.type' => \App\Http\Middleware\Checks\VehicleTypeExists::class,
-        'exists.vehicle.expense.fuel' => \App\Http\Middleware\Checks\FuelExpenseExists::class,
-        'exists.vehicle.expense.activity' => \App\Http\Middleware\Checks\ActivityExpenseExists::class,
-
-        'exists.fuel' => \App\Http\Middleware\Checks\FuelExists::class,
-        'exists.fuel.type' => \App\Http\Middleware\Checks\FuelTypeExists::class,
-
-        'exists.engine.type' => \App\Http\Middleware\Checks\EngineTypeExists::class,
-
-        'exists.location' => \App\Http\Middleware\Checks\LocationExists::class,
-        'exists.location.category' => \App\Http\Middleware\Checks\LocationCategoryExists::class,
-
-        'exists.activity.category' => \App\Http\Middleware\Checks\ActivityCategoryExists::class,
+        'exists' => \App\Http\Middleware\Checks\RecordExists::class,
     ];
 }

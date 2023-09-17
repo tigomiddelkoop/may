@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('cleaning_expenses', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('vehicle_id')->index()->constrained('vehicles');
-            $table->foreignUuid('cleaning_category_id')->index()->constrained('cleaning_categories');
-            $table->foreignUuid('location_id')->constrained('locations')->nullable();
+            $table->uuid('vehicle_id')->index()->constrained('vehicles');
+            $table->uuid('cleaning_category_id')->index()->constrained('cleaning_categories');
+            $table->uuid('location_id')->constrained('locations')->nullable();
 
             $table->decimal('price');
             $table->bigInteger('odometer');

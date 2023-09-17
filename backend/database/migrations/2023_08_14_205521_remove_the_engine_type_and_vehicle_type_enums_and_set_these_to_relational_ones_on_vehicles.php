@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::dropColumns('vehicles', ['engine_type', 'vehicle_type']);
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->integer('engine_type_id')->constrained('engine_types')->nullable();
-            $table->integer('vehicle_type_id')->constrained('vehicle_types')->nullable();
+            $table->uuid('engine_type_id')->constrained('engine_types')->nullable();
+            $table->uuid('vehicle_type_id')->constrained('vehicle_types')->nullable();
         });
     }
 

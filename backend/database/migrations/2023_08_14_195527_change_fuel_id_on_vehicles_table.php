@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::dropColumns('vehicles', ['fuel_id']);
 
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->bigInteger('fuel_category_id')->constrained('fuel_categories')->nullable()->after('engine_type');
-            $table->bigInteger('default_fuel_id')->constrained('fuels')->nullable()->after('fuel_category_id');
+            $table->uuid('fuel_category_id')->constrained('fuel_categories')->nullable()->after('engine_type');
+            $table->uuid('default_fuel_id')->constrained('fuels')->nullable()->after('fuel_category_id');
         });
     }
 
@@ -27,7 +27,7 @@ return new class extends Migration
         Schema::dropColumns('vehicles', ['fuel_category_id', 'default_fuel_id']);
 
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->foreignUuid('fuel_id')->nullable();
+            $table->uuid('fuel_id')->nullable();
         });
     }
 };

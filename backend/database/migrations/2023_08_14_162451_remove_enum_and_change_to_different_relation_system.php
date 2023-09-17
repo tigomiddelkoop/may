@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::dropColumns('fuels', ['type']);
 
         Schema::table('fuels', function (Blueprint $table) {
-            $table->foreignUuid('fuel_category_id')->after('description')->constrained('fuel_categories');
+            $table->uuid('fuel_category_id')->after('description')->constrained('fuel_categories');
         });
     }
 

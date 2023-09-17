@@ -14,6 +14,21 @@ class Vehicle extends Model
 
     protected $hidden = ['deleted_at'];
 
+    protected $fillable = [
+        'make',
+        'model',
+        'initial_kilometers',
+        'license_plate',
+        'license_plate_country',
+        'vin_number',
+        'note',
+        'added_by',
+
+        'default_fuel_id',
+        'engine_type_id',
+        'vehicle_type_id',
+    ];
+
     public function defaultFuel(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);

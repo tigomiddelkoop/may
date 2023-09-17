@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignUuid('vehicle_id')->constrained('vehicles');
+            $table->uuid('vehicle_id')->constrained('vehicles');
 
             $table->boolean('in_progress')->default(false);
 

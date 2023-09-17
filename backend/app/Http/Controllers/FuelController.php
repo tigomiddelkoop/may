@@ -29,24 +29,18 @@ class FuelController extends Controller
     public function store(StoreRequest $request)
     {
         $validated = $request->validated();
-        $fuel = new Fuel();
+        $fuel = Fuel::create([
+            // required
+            'name' => $validated['name'],
 
-        $fuel->name = $validated['name'];
+            // nullable
+            'description' => $validated['description'] ?? null,
 
-        // description
-        if (isset($validated['description'])) {
-            $fuel->description = $validated['description'];
-        }
+            // relations
+            'fuel_type_id' => $validated['fuel_type_id'],
+        ]);
 
-        $fuel->fuelType()->associate($validated['fuel_type_id']);
-
-        $saved = $fuel->saveOrFail();
-
-        if (! $saved) {
-            return new ErrorResponse('An error has occurred when storing the fuel');
-        }
-
-        return new StoreResponse($fuel->refresh());
+        return new StoreResponse($fuel);
     }
 
     /**
@@ -54,7 +48,9 @@ class FuelController extends Controller
      */
     public function show(string $id)
     {
-        $fuel = Fuel::with(['fuelType'])->where('id', $id)->first();
+        $fuel = Fuel::where('id', $id)
+            ->with(['fuelType'])
+            ->first();
 
         return new GetResponse($fuel);
     }
@@ -65,29 +61,19 @@ class FuelController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $validated = $request->validated();
+
         $fuel = Fuel::find($id);
+        $updated = $fuel->update([
+            'name' => $validated['name'] ?? $fuel->name,
+            'description' => $validated['description'] ?? $fuel->description,
+            'fuel_type_id' => $validated['fuel_type_id'] ?? $fuel->fuel_type_id,
+        ]);
 
-        // name
-        if (isset($validated['name']) && $fuel->name != $validated['name']) {
-            $fuel->name = $validated['name'];
-        }
-
-        // description
-        if (isset($validated['description']) && $fuel->description != $validated['description']) {
-            $fuel->description = $validated['description'];
-        }
-
-        // fuel_type_id
-        if (isset($validated['fuel_type_id']) && $fuel->fuel_type_id != $validated['fuel_type_id']) {
-            $fuel->fuelType()->associate($validated['fuel_type_id']);
-        }
-
-        $updated = $fuel->update();
         if (! $updated) {
             return new ErrorResponse('An error has occurred when updating the fuel');
         }
 
-        return new UpdateResponse(Fuel::find($id));
+        return new UpdateResponse($fuel);
     }
 
     /**

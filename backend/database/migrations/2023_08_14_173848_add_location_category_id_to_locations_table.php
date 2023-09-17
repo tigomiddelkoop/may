@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('locations', function (Blueprint $table) {
-            $table->foreignUuid('location_category_id')->constrained('location_categories')->after('address');
+            $table->uuid('location_category_id')->constrained('location_categories')->after('address');
         });
     }
 

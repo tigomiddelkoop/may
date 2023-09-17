@@ -18,7 +18,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])->orderBy('id')->get();
+        $vehicles = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])
+            ->orderBy('created_at')
+            ->get();
 
         return new GetResponse($vehicles);
     }
@@ -29,40 +31,28 @@ class VehicleController extends Controller
     public function store(StoreRequest $request)
     {
         $validated = $request->validated();
-        $vehicle = new Vehicle();
+        $vehicle = Vehicle::create([
+            // required
+            'make' => $validated['make'],
+            'model' => $validated['model'],
+            'initial_kilometers' => $validated['initial_kilometers'],
+            'license_plate' => $validated['license_plate'],
+            'license_plate_country' => $validated['license_plate_country'],
 
-        $vehicle->make = $validated['make'];
-        $vehicle->model = $validated['model'];
+            // nullable
+            'vin_number' => $validated['vin_number'] ?? null,
+            'note' => $validated['note'] ?? null,
 
-        $vehicle->initial_kilometers = $validated['initial_kilometers'];
+            // filled by auth
+            'added_by' => 1,
 
-        // vin_number
-        if (isset($validated['vin_number'])) {
-            $vehicle->vin_number = $validated['vin_number'];
-        }
+            // relations
+            'default_fuel_id' => $validated['default_fuel_id'],
+            'engine_type_id' => $validated['engine_type_id'],
+            'vehicle_type_id' => $validated['vehicle_type_id'],
+        ]);
 
-        $vehicle->license_plate = $validated['license_plate'];
-        $vehicle->license_plate_country = $validated['license_plate_country'];
-
-        // note
-        if (isset($validated['note'])) {
-            $vehicle->note = $validated['note'];
-        }
-
-        $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
-        $vehicle->engineType()->associate($validated['engine_type_id']);
-        $vehicle->defaultFuel()->associate($validated['default_fuel_id']);
-
-        // @TODO Switch to the user model for login
-        $vehicle->added_by = 1;
-
-        $saved = $vehicle->saveOrFail();
-
-        if (! $saved) {
-            return new ErrorResponse('An error has occurred when storing the vehicle');
-        }
-
-        return new StoreResponse($vehicle->refresh());
+        return new StoreResponse($vehicle);
     }
 
     /**
@@ -70,7 +60,9 @@ class VehicleController extends Controller
      */
     public function show(string $license_plate)
     {
-        $vehicle = Vehicle::with(['engineType', 'vehicleType', 'defaultFuel'])->where('license_plate', $license_plate)->first();
+        $vehicle = Vehicle::with(['engineType', 'vehicleType', 'defaultFuel'])
+            ->where('license_plate', $license_plate)
+            ->first();
 
         return new GetResponse($vehicle);
     }
@@ -81,59 +73,26 @@ class VehicleController extends Controller
     public function update(UpdateRequest $request, string $license_plate)
     {
         $validated = $request->validated();
+
         $vehicle = Vehicle::where('license_plate', $license_plate)->first();
+        $updated = $vehicle->update([
+            'make' => $validated['make'] ?? $vehicle->make,
+            'model' => $validated['model'] ?? $vehicle->model,
+            'license_plate' => $validated['license_plate'] ?? $vehicle->license_plate,
+            'license_plate_country' => $validated['license_plate_country'] ?? $vehicle->license_plate_country,
+            'vin_number' => $validated['vin_number'] ?? $vehicle->vin_number,
+            'initial_kilometers' => $validated['initial_kilometers'] ?? $vehicle->initial_kilometers,
+            'note' => $validated['note'] ?? $vehicle->note,
+            'vehicle_type_id' => $validated['vehicle_type_id'] ?? $vehicle->vehicle_type_id,
+            'engine_type_id' => $validated['engine_type_id'] ?? $vehicle->engine_type_id,
+            'default_fuel_id' => $validated['default_fuel_id'] ?? $vehicle->default_fuel_id,
+        ]);
 
-        // model
-        if (isset($validated['model']) && $vehicle->model != $validated['model']) {
-            $vehicle->model = $validated['model'];
-        }
-
-        // license_plate
-        if (isset($validated['license_plate']) && $vehicle->license_plate != $validated['license_plate']) {
-            $vehicle->license_plate = $validated['license_plate'];
-        }
-
-        // license_plate_country
-        if (isset($validated['license_plate_country']) && $vehicle->license_plate_country != $validated['license_plate_country']) {
-            $vehicle->license_plate_country = $validated['license_plate_country'];
-        }
-
-        // vin_number
-        if (isset($validated['vin_number']) && $vehicle->vin_number != $validated['vin_number']) {
-            $vehicle->vin_number = $validated['vin_number'];
-        }
-
-        // initial_kilometers
-        if (isset($validated['initial_kilometers']) && $vehicle->initial_kilometers != $validated['initial_kilometers']) {
-            $vehicle->initial_kilometers = $validated['initial_kilometers'];
-        }
-
-        // note
-        if (isset($validated['note']) && $vehicle->note != $validated['note']) {
-            $vehicle->note = $validated['note'];
-        }
-
-        // vehicle_type_id
-        if (isset($validated['vehicle_type_id']) && $vehicle->vehicle_type_id != $validated['vehicle_type_id']) {
-            $vehicle->vehicleType()->associate($validated['vehicle_type_id']);
-        }
-
-        // engine_type_id
-        if (isset($validated['engine_type_id']) && $vehicle->engine_type_id != $validated['engine_type_id']) {
-            $vehicle->engineType()->associate($validated['engine_type_id']);
-        }
-
-        // default_fuel_id
-        if (isset($validated['default_fuel_id']) && $vehicle->default_fuel_id != $validated['default_fuel_id']) {
-            $vehicle->defaultFuel()->associate($validated['default_fuel_id']);
-        }
-
-        $updated = $vehicle->update();
         if (! $updated) {
             return new ErrorResponse('An error has occurred when updating the vehicle');
         }
 
-        return new UpdateResponse($vehicle->refresh());
+        return new UpdateResponse($vehicle);
     }
 
     /**
