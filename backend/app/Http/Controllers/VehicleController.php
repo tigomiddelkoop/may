@@ -18,7 +18,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::with(['engineType', 'vehicleType', 'defaultFuelType'])
+        $vehicles = Vehicle::with(['engineType', 'vehicleType', 'defaultFuel'])
             ->orderBy('created_at')
             ->get();
 
