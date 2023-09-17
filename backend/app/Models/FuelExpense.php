@@ -13,7 +13,6 @@ class FuelExpense extends Model
 
     protected $hidden = ['deleted_at'];
 
-
     public function fuel(): BelongsTo
     {
         return $this->belongsTo(Fuel::class);

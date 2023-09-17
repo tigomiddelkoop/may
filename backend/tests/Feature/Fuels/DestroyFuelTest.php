@@ -27,8 +27,8 @@ class DestroyFuelTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertExactJson([
-                "message" => "Data has been destroyed",
-                "data" => []
+                'message' => 'Data has been destroyed',
+                'data' => [],
             ]);
 
         $this->assertSoftDeleted(Fuel::class, ['id' => '1a9157a7-ae5f-4cf9-9883-c9d26c082cba']);

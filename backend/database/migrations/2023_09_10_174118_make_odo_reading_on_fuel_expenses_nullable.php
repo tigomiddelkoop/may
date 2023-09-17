@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('fuel_expenses',  function (Blueprint $table) {
+        Schema::table('fuel_expenses', function (Blueprint $table) {
             $table->bigInteger('odo_reading')->nullable()->change();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('fuel_expenses',  function (Blueprint $table) {
+        Schema::table('fuel_expenses', function (Blueprint $table) {
             $table->bigInteger('odo_reading')->nullable(false)->change();
         });
     }

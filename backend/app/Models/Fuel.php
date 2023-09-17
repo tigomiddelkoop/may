@@ -15,7 +15,6 @@ class Fuel extends Model
 
     protected $hidden = ['deleted_at'];
 
-
     public function locations(): BelongsToMany
     {
         return $this->belongsToMany(Location::class);

@@ -13,7 +13,6 @@ class ActivityExpense extends Model
 
     protected $hidden = ['deleted_at'];
 
-
     public function activityCategory(): BelongsTo
     {
         return $this->belongsTo(ActivityCategory::class);

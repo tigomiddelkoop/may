@@ -10,5 +10,4 @@ class LocationCategory extends Model
     use HasFactory, UuidPrimaryKey;
 
     protected $hidden = ['deleted_at'];
-
 }

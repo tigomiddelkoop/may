@@ -18,7 +18,6 @@ class ShowFuelTest extends TestCase
         $this->seed();
     }
 
-
     /** @test */
     public function it_should_return_information_about_a_fuel(): void
     {
@@ -38,12 +37,12 @@ class ShowFuelTest extends TestCase
                         'id' => 'ffe5d2a9-a5fa-4a11-a3e2-775cbeb57d20',
                         'name' => 'GASOLINE',
                         'created_at' => '2023-01-01T00:00:00.000000Z',
-                        'updated_at' => '2023-01-01T00:00:00.000000Z'
+                        'updated_at' => '2023-01-01T00:00:00.000000Z',
                     ],
 
                     'created_at' => '2023-01-01T00:00:00.000000Z',
                     'updated_at' => '2023-01-01T00:00:00.000000Z',
-                ]
+                ],
             ]);
 
     }

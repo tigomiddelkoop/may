@@ -13,7 +13,6 @@ class Location extends Model
 
     protected $hidden = ['deleted_at'];
 
-
     public function fuelExpenses(): HasMany
     {
         return $this->hasMany(FuelExpense::class);
